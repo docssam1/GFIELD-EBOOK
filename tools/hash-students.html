@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>G-FIELD 승인명단 해시 생성기</title>
+  <script src="../students.js"></script>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4f7fb;color:#0f172a}
+    main{width:min(860px,calc(100vw - 32px));margin:36px auto;display:grid;gap:14px}
+    h1{margin:0;color:#16417c;font-size:24px}
+    p{margin:0;color:#475569;line-height:1.6;word-break:keep-all}
+    textarea{width:100%;min-height:180px;border:1px solid #cbd5e1;border-radius:8px;padding:14px;font:15px/1.5 ui-monospace,Consolas,monospace}
+    button{width:max-content;border:0;border-radius:8px;padding:12px 16px;background:#16417c;color:white;font-weight:900;cursor:pointer}
+    pre{white-space:pre-wrap;background:white;border:1px solid #cbd5e1;border-radius:8px;padding:14px;min-height:160px}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>승인명단 해시 생성기</h1>
+    <p>학생 이름을 한 줄에 하나씩 입력하고 생성하세요. 나온 값을 students.js의 approvedHashes 배열에 붙여 넣으면 이름을 직접 공개하지 않고 승인할 수 있습니다.</p>
+    <textarea id="names" placeholder="김지필&#10;이지필"></textarea>
+    <button type="button" id="make">해시 생성</button>
+    <pre id="output"></pre>
+  </main>
+  <script>
+    const salt = (window.GFIELD_STUDENTS && window.GFIELD_STUDENTS.salt) || "gfield-thinking-basic-2026";
+    function normalizeName(v){return String(v||"").normalize("NFC").replace(/\s+/g,"").trim().toUpperCase()}
+    async function sha256Hex(message){
+      const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(message));
+      return Array.from(new Uint8Array(d)).map(b=>b.toString(16).padStart(2,"0")).join("");
+    }
+    document.getElementById("make").addEventListener("click", async () => {
+      const names = document.getElementById("names").value.split(/\r?\n/).map(normalizeName).filter(Boolean);
+      const hashes = [];
+      for (const name of names) hashes.push(await sha256Hex(salt + ":" + name));
+      document.getElementById("output").textContent = hashes.map(h => '    "' + h + '"').join(",\n");
+    });
+  </script>
+</body>
+</html>
