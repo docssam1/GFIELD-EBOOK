@@ -1391,8 +1391,9 @@ function loadArchiveAdminConfig(){
 let archiveConfig=loadArchiveAdminConfig();
 let currentLecturePage=0;
 let currentLectureGroup=0;
+let runtimeViewerUrl='';
 function getLectureButtons(){
-  return Array.isArray(archiveConfig.lectureButtons)?archiveConfig.lectureButtons.filter(item=>item && (item.label||item.url||item.scrollTarget||item.downloadUrl)):[]; 
+  return Array.isArray(archiveConfig.lectureButtons)?archiveConfig.lectureButtons.filter(item=>item && (item.label||item.url||item.scrollTarget||item.viewerPage||item.downloadUrl)):[]; 
 }
 function arrangeLoginBelowSections(){
   const ebook=document.getElementById('ebookViewerSection');
@@ -1410,7 +1411,7 @@ function arrangeLoginBelowSections(){
   }
 }
 function setupEbookViewer(){
-  const viewerUrl=(archiveConfig.ebookViewerUrl||ARCHIVE_DEFAULT_CONFIG.ebookViewerUrl||'').trim();
+  const viewerUrl=(runtimeViewerUrl||archiveConfig.ebookViewerUrl||ARCHIVE_DEFAULT_CONFIG.ebookViewerUrl||'').trim();
   const lectureButtons=getLectureButtons();
   const hasVideoLinks=lectureButtons.some(item=>(item.url||'').trim());
   const hasDownloadLinks=lectureButtons.some(item=>(item.downloadUrl||'').trim());
@@ -1473,6 +1474,36 @@ function setupEbookViewer(){
     };
   }
   if(askBtn)askBtn.onclick=()=>openAiModal();
+}
+function buildViewerUrlWithPosition(item){
+  const base=(archiveConfig.ebookViewerUrl||ARCHIVE_DEFAULT_CONFIG.ebookViewerUrl||'').trim();
+  if(!base)return '';
+  const page=(item?.viewerPage||'').trim();
+  const offset=((item?.viewerOffset ?? '0.0')+'').trim();
+  if(!page && !offset)return base;
+  const separator=base.includes('?')?'&':'?';
+  const query=[];
+  if(page)query.push(`page=${encodeURIComponent(page)}`);
+  if(offset)query.push(`offset=${encodeURIComponent(offset)}`);
+  return `${base}${separator}${query.join('&')}`;
+}
+function moveViewerToLecture(item){
+  const nextUrl=buildViewerUrlWithPosition(item);
+  if(!nextUrl)return false;
+  runtimeViewerUrl=nextUrl;
+  setupEbookViewer();
+  document.getElementById('ebookViewerSection')?.scrollIntoView({behavior:'smooth',block:'start'});
+  return true;
+}
+function getLectureLocationLabel(item){
+  const page=(item?.viewerPage||'').trim();
+  const offset=((item?.viewerOffset ?? '')+'').trim();
+  const note=(item?.positionNote||'').trim();
+  const parts=[];
+  if(page)parts.push(`${page}쪽`);
+  if(offset)parts.push(`${offset} 위치`);
+  if(note)parts.push(note);
+  return parts.join(' · ');
 }
 function resolveLectureScrollTarget(target){
   const value=(target||'').trim();
@@ -1631,19 +1662,24 @@ function renderLectureLibrary(){
     const card=document.createElement('div');
     card.className='lecture-card';
     card.dataset.scrollTarget=(item.scrollTarget||'').trim();
-    const primaryLabel=item.url?'강의 보기':(item.scrollTarget?'해당 위치 보기':(item.downloadUrl?'자료 보기':'준비 중'));
+    const viewerLocation=getLectureLocationLabel(item);
+    const primaryLabel=item.url?'강의 보기':((item.scrollTarget||item.viewerPage)?'해당 위치 보기':(item.downloadUrl?'자료 보기':'준비 중'));
     const info=item.url
-      ? (item.scrollTarget?`해당 위치로 이동한 뒤 연결된 강의를 새 창에서 엽니다.`:'클릭하면 연결된 강의 링크를 새 창에서 엽니다.')
-      : (item.scrollTarget?`타깃 ${escapeHtml(item.scrollTarget)} 위치로 이동합니다.`:(item.downloadUrl?'연결된 자료를 바로 열거나 내려받을 수 있습니다.':'아직 링크가 연결되지 않았습니다.'));
+      ? ((item.scrollTarget||item.viewerPage)?`${viewerLocation?`${escapeHtml(viewerLocation)} 기준으로 `:''}연결된 강의를 새 창에서 엽니다.`:'클릭하면 연결된 강의 링크를 새 창에서 엽니다.')
+      : ((item.scrollTarget||item.viewerPage)?`${viewerLocation?`${escapeHtml(viewerLocation)} 기준으로 `:''}교재 위치를 바로 엽니다.`:(item.downloadUrl?'연결된 자료를 바로 열거나 내려받을 수 있습니다.':'아직 링크가 연결되지 않았습니다.'));
     const downloadAction=item.downloadUrl?`<a class="lecture-action" href="${escapeHtml(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" download>${escapeHtml(item.downloadLabel||'자료 다운로드')}</a>`:'';
     card.innerHTML=`<div><small>PAGE ${escapeHtml(activePage)} · BUTTON ${absoluteIndex}</small><strong>${escapeHtml(item.label||`버튼 ${absoluteIndex}`)}</strong><span>${info}</span></div><div class="lecture-card-actions"><button class="lecture-action primary" type="button">${escapeHtml(primaryLabel)}</button>${downloadAction}</div>`;
     card.querySelector('.lecture-action.primary')?.addEventListener('click',()=>{
-      scrollLectureTarget(item.scrollTarget);
+      if(item.scrollTarget)scrollLectureTarget(item.scrollTarget);
+      else if(item.viewerPage)moveViewerToLecture(item);
       if(item.url)window.open(item.url,'_blank','noopener');
       else if(item.downloadUrl)window.open(item.downloadUrl,'_blank','noopener');
     });
     card.querySelectorAll('a.lecture-action').forEach(link=>{
-      link.addEventListener('click',()=>scrollLectureTarget(item.scrollTarget));
+      link.addEventListener('click',()=>{
+        if(item.scrollTarget)scrollLectureTarget(item.scrollTarget);
+        else if(item.viewerPage)moveViewerToLecture(item);
+      });
     });
     grid.appendChild(card);
   });

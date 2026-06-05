@@ -39,6 +39,10 @@ body{padding:28px}
 .lecture-index{color:#f8dd83;font-size:12px;font-weight:1000;letter-spacing:.1em}
 .mini-grid{display:grid;grid-template-columns:1fr 1fr .75fr 1.1fr 1.05fr;gap:10px}
 .sub-grid{display:grid;grid-template-columns:.9fr 1.4fr;gap:10px;margin-top:10px}
+.position-grid{display:grid;grid-template-columns:.7fr 1.5fr 1.1fr;gap:10px;margin-top:10px}
+.vertical-points{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:6px;margin-top:8px}
+.vertical-point{display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:11px;font-weight:900}
+.vertical-point input{margin-right:4px}
 .group-list{display:grid;gap:12px;margin-top:14px}
 .group-item{padding:16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
 .group-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
@@ -178,7 +182,7 @@ body{padding:28px}
 
     <section class="panel">
       <h2>강의 버튼 관리</h2>
-      <p>상위 버튼 아래에 들어갈 강의 버튼을 관리합니다. 버튼 이름, 페이지, 링크를 한 줄씩 관리합니다.</p>
+      <p>상위 버튼 아래에 들어갈 강의 버튼을 관리합니다. 버튼 이름, 페이지 그룹, 강의 링크와 교재 위치를 함께 저장합니다.</p>
 
       <div class="lecture-head">
         <div class="count" id="lectureCount">0 / 40</div>
@@ -301,6 +305,8 @@ function createGroupItem(item={},index=0){
 function createLectureItem(item={},index=0){
   const wrap=document.createElement('div');
   wrap.className='lecture-item';
+  const pointValues=Array.from({length:11},(_,step)=>(step/10).toFixed(1));
+  const selectedPoint=(item.viewerOffset ?? item.positionOffset ?? '0.0').toString();
   wrap.innerHTML=`
     <div class="lecture-item-top">
       <div class="lecture-index">BUTTON ${index+1}</div>
@@ -326,6 +332,22 @@ function createLectureItem(item={},index=0){
       <div class="field" style="margin-top:0">
         <label>스크롤 타깃</label>
         <input type="text" class="lecture-scroll-target" placeholder="예: #p1-5 또는 question-12" value="${escapeHtml(item.scrollTarget||'')}">
+      </div>
+    </div>
+    <div class="position-grid">
+      <div class="field" style="margin-top:0">
+        <label>교재 쪽수</label>
+        <input type="text" class="lecture-viewer-page" placeholder="예: 4" value="${escapeHtml(item.viewerPage||'')}">
+      </div>
+      <div class="field" style="margin-top:0">
+        <label>세로 위치 (0.0 ~ 1.0)</label>
+        <div class="vertical-points">
+          ${pointValues.map(value=>`<label class="vertical-point"><input type="radio" name="viewer-offset-${index}" value="${value}" ${selectedPoint===value?'checked':''}>${value}</label>`).join('')}
+        </div>
+      </div>
+      <div class="field" style="margin-top:0">
+        <label>위치 메모</label>
+        <input type="text" class="lecture-position-note" placeholder="예: 위쪽, 중간, 아래쪽" value="${escapeHtml(item.positionNote||'')}">
       </div>
     </div>
     <div class="sub-grid">
@@ -418,9 +440,12 @@ function collectConfigFromForm(){
     page:item.querySelector('.lecture-page').value.trim(),
     url:item.querySelector('.lecture-url').value.trim(),
     scrollTarget:item.querySelector('.lecture-scroll-target').value.trim(),
+    viewerPage:item.querySelector('.lecture-viewer-page').value.trim(),
+    viewerOffset:item.querySelector('input[type="radio"]:checked')?.value || '0.0',
+    positionNote:item.querySelector('.lecture-position-note').value.trim(),
     downloadLabel:item.querySelector('.lecture-download-label').value.trim(),
     downloadUrl:item.querySelector('.lecture-download-url').value.trim()
-  })).filter(item=>item.group || item.label || item.page || item.url || item.scrollTarget || item.downloadUrl);
+  })).filter(item=>item.group || item.label || item.page || item.url || item.scrollTarget || item.viewerPage || item.downloadUrl);
   return {
     courseName:document.getElementById('courseName').value.trim()||DEFAULT_CONFIG.courseName,
     ebookViewerUrl:document.getElementById('ebookViewerUrl').value.trim(),

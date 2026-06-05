@@ -467,6 +467,8 @@
 <script>
   const params = new URLSearchParams(location.search);
   const sourceUrl = params.get('source') || './thinking-basic.html';
+  const initialPage = Math.max(1, parseInt(params.get('page') || '1', 10) || 1);
+  const initialOffset = Math.min(1, Math.max(0, parseFloat(params.get('offset') || '0') || 0));
   const sourceName = (sourceUrl.split('/').pop() || '').toLowerCase();
   const isPdfSource = sourceName.endsWith('.pdf');
 
@@ -501,6 +503,7 @@
   let currentIndex = 0;
   let touchStartX = 0;
   let loaderReady = false;
+  let pendingOffset = initialOffset;
 
   sourceStatus.textContent = sourceUrl.split('/').pop() || 'thinking-basic.html';
 
@@ -517,8 +520,8 @@
 <meta charset="UTF-8">
 ${sourceHeadMarkup}
 <style>
-  html,body{margin:0;height:100%;overflow:hidden;background:#09101c;}
-  body{display:flex;align-items:center;justify-content:center;padding:20px 0;}
+  html,body{margin:0;height:100%;overflow:auto;background:#09101c;}
+  body{display:flex;align-items:flex-start;justify-content:center;padding:20px 0;}
   .page{
     margin:0 auto !important;
     box-shadow:0 22px 52px rgba(0,0,0,.34) !important;
@@ -597,6 +600,19 @@ ${pageMarkup}
     }
     frame.srcdoc = pageDocuments[pageIndex];
   }
+  function applyFrameOffset(frame){
+    if(!frame) return;
+    const desired = pendingOffset;
+    frame.onload = () => {
+      try{
+        const doc = frame.contentDocument;
+        if(!doc) return;
+        const root = doc.scrollingElement || doc.documentElement || doc.body;
+        const maxScroll = Math.max(0, root.scrollHeight - root.clientHeight);
+        root.scrollTop = Math.round(maxScroll * desired);
+      }catch(error){}
+    };
+  }
 
   function getSpreadLabel(){
     if(mode === 'single') return `${currentIndex + 1} / ${pageCount}`;
@@ -633,8 +649,10 @@ ${pageMarkup}
     const rightShell = document.getElementById('rightShell');
     rightShell.classList.toggle('hidden', mode === 'single');
     rightShell.style.display = mode === 'single' ? 'none' : '';
+    applyFrameOffset(leftFrame);
     setFrameContent(leftFrame, currentIndex);
     if(mode === 'book'){
+      applyFrameOffset(rightFrame);
       setFrameContent(rightFrame, Math.min(currentIndex + 1, pageCount - 1));
     }else{
       rightFrame.srcdoc = '';
@@ -733,13 +751,18 @@ ${pageMarkup}
         pageCount = pageDocuments.length;
         if(!pageCount) throw new Error('no pages found');
         loaderReady = true;
+        currentIndex = Math.min(Math.max(0, initialPage - 1), Math.max(0, pageDocuments.length - 1));
         renderPages();
       }catch(error){
         showError('HTML 교재에서 페이지 구조를 읽지 못했습니다. `.page` 구성을 확인해 주세요.');
       }
     });
     tryLoadPageData().then((loadedFromData) => {
-      if(loadedFromData) return;
+      if(loadedFromData){
+        currentIndex = Math.min(Math.max(0, initialPage - 1), Math.max(0, pageDocuments.length - 1));
+        renderPages();
+        return;
+      }
       loaderFrame.src = sourceUrl;
     });
   }
