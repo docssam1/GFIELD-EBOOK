@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GFIELD E-BOOK</title>
+<style>
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+  :root{
+    --bg:#05070d;
+    --panel:#0b1020;
+    --panel-2:#0f1730;
+    --line:rgba(255,255,255,.08);
+    --line-soft:rgba(255,255,255,.05);
+    --gold:#e3c47b;
+    --text:#f8fafc;
+    --muted:#a8b0c3;
+    --shadow:0 24px 72px rgba(0,0,0,.38);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--text);
+    overflow:hidden;
+    background:
+      radial-gradient(circle at top left, rgba(35,84,147,.14), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(227,196,123,.08), transparent 26%),
+      linear-gradient(180deg,#04060b,#09101b 44%,#05070d);
+  }
+
+  .viewer-app{
+    height:100%;
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+  }
+
+  .viewer-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:16px 18px 12px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(10,15,28,.95),rgba(10,15,28,.82));
+    backdrop-filter:blur(18px);
+  }
+
+  .viewer-brand{
+    min-width:0;
+  }
+
+  .brand-kicker{
+    margin:0;
+    color:var(--gold);
+    font-size:12px;
+    font-weight:1000;
+    letter-spacing:.22em;
+  }
+
+  .brand-title{
+    margin:8px 0 0;
+    font-size:clamp(24px,2.2vw,31px);
+    line-height:1.05;
+    font-weight:1000;
+    letter-spacing:-.045em;
+  }
+
+  .viewer-tools{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:10px;
+  }
+
+  .tool-cluster{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:rgba(255,255,255,.03);
+  }
+
+  .control-btn{
+    border:none;
+    min-width:92px;
+    padding:10px 14px;
+    border-radius:12px;
+    background:transparent;
+    color:#d8e0ee;
+    font-weight:900;
+    font-family:inherit;
+    cursor:pointer;
+    transition:background .18s ease,color .18s ease,opacity .18s ease,transform .18s ease;
+  }
+
+  .control-btn:hover{
+    background:rgba(255,255,255,.05);
+  }
+
+  .control-btn:active{
+    transform:translateY(1px);
+  }
+
+  .control-btn.active{
+    background:linear-gradient(180deg,#f6de9c,#dcb864);
+    color:#111827;
+  }
+
+  .control-btn.utility{
+    min-width:auto;
+    padding-inline:12px;
+  }
+
+  .control-btn.disabled,
+  .control-btn:disabled{
+    opacity:.35;
+    pointer-events:none;
+  }
+
+  .page-arrow{
+    width:42px;
+    height:42px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.04);
+    color:#eef2ff;
+    cursor:pointer;
+    font-size:18px;
+  }
+
+  .page-arrow:disabled{
+    opacity:.32;
+    cursor:default;
+  }
+
+  .page-chip{
+    min-width:96px;
+    text-align:center;
+    font-size:14px;
+    font-weight:900;
+    color:#fff5d8;
+  }
+
+  .viewer-stage{
+    position:relative;
+    padding:14px 18px;
+    overflow:hidden;
+  }
+
+  .html-stage,
+  .pdf-stage{
+    position:absolute;
+    inset:14px 18px;
+  }
+
+  .pdf-stage[hidden],
+  .html-stage[hidden]{
+    display:none;
+  }
+
+  .spread{
+    height:100%;
+    width:min(100%,1500px);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    align-items:center;
+    transition:transform .34s ease,opacity .34s ease,filter .34s ease;
+  }
+
+  .spread.turning{
+    transform:scale(.988) translateY(6px);
+    opacity:.84;
+    filter:blur(1.4px);
+  }
+
+  .spread.single{
+    grid-template-columns:minmax(0,1fr);
+    max-width:980px;
+  }
+
+  .page-shell{
+    position:relative;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(180deg,#0c1326,#070b15);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    aspect-ratio:210 / 297;
+  }
+
+  .page-shell.hidden{
+    display:none;
+  }
+
+  .page-shell iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    display:block;
+    background:#070b15;
+    pointer-events:none;
+  }
+
+  .pdf-stage{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .pdf-frame-shell{
+    width:min(100%,1120px);
+    height:100%;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:var(--shadow);
+    background:#0a0f1d;
+  }
+
+  .pdf-frame{
+    width:100%;
+    height:100%;
+    border:none;
+    display:block;
+    background:#fff;
+  }
+
+  .stage-zone{
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:18%;
+    z-index:5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:rgba(255,255,255,.16);
+    font-size:38px;
+    user-select:none;
+    transition:opacity .2s ease,color .2s ease,background .2s ease;
+  }
+
+  .stage-zone.left{left:0}
+  .stage-zone.right{right:0}
+
+  .stage-zone:hover{
+    color:rgba(255,255,255,.34);
+    background:linear-gradient(90deg,rgba(255,255,255,.04),transparent);
+  }
+
+  .stage-zone.right:hover{
+    background:linear-gradient(270deg,rgba(255,255,255,.04),transparent);
+  }
+
+  .stage-zone.disabled{
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .ghost-arrow{
+    display:flex;
+    width:62px;
+    height:62px;
+    align-items:center;
+    justify-content:center;
+    border-radius:999px;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.03);
+  }
+
+  .viewer-footer{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:12px;
+    padding:12px 18px 16px;
+    border-top:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(8,12,22,.4),rgba(8,12,22,.76));
+  }
+
+  .viewer-status{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .viewer-status span{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    min-height:36px;
+    padding:0 12px;
+    border-radius:999px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--line-soft);
+    color:#cfd7e6;
+    font-size:12px;
+    font-weight:900;
+  }
+
+  .loading-screen,
+  .error-screen{
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    padding:24px;
+    text-align:center;
+    z-index:10;
+    background:linear-gradient(180deg,rgba(6,10,18,.94),rgba(6,10,18,.98));
+  }
+
+  .loading-screen[hidden],
+  .error-screen[hidden]{
+    display:none;
+  }
+
+  .status-card{
+    max-width:520px;
+    padding:28px 26px;
+    border-radius:24px;
+    border:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(180deg,rgba(13,20,36,.94),rgba(9,14,24,.96));
+    box-shadow:var(--shadow);
+  }
+
+  .status-card b{
+    color:var(--gold);
+    letter-spacing:.2em;
+    font-size:12px;
+  }
+
+  .status-card h2{
+    margin:10px 0 0;
+    font-size:30px;
+    line-height:1.2;
+    letter-spacing:-.04em;
+  }
+
+  .status-card p{
+    margin:14px 0 0;
+    color:var(--muted);
+    line-height:1.7;
+    word-break:keep-all;
+  }
+
+  .preload-frame{
+    position:absolute;
+    width:1px;
+    height:1px;
+    opacity:0;
+    pointer-events:none;
+    inset:-9999px auto auto -9999px;
+  }
+
+  @media (max-width:960px){
+    .viewer-header{
+      display:grid;
+      grid-template-columns:1fr;
+    }
+    .viewer-tools{
+      justify-content:flex-start;
+    }
+    .html-stage,
+    .pdf-stage{
+      inset:12px;
+    }
+    .spread{
+      gap:12px;
+    }
+    .page-shell,
+    .pdf-frame-shell{
+      border-radius:18px;
+    }
+    .stage-zone{width:20%}
+    .viewer-footer{justify-content:flex-start}
+  }
+</style>
+</head>
+<body>
+  <div class="viewer-app">
+    <header class="viewer-header">
+      <div class="viewer-brand">
+        <p class="brand-kicker">GFIELD-ON</p>
+        <h1 class="brand-title">GFIELD E-BOOK</h1>
+      </div>
+      <div class="viewer-tools">
+        <div class="tool-cluster">
+          <button class="control-btn utility" type="button" id="viewerAiBtn">에이독쌤에게 질문하기</button>
+          <button class="control-btn utility" type="button" id="viewerPrintBtn">인쇄</button>
+          <button class="control-btn utility" type="button" id="viewerExitBtn">나가기</button>
+        </div>
+        <div class="tool-cluster" role="tablist" aria-label="보기 모드">
+          <button class="control-btn active" type="button" id="singleModeBtn">한 페이지 보기</button>
+          <button class="control-btn" type="button" id="bookModeBtn">책으로 보기</button>
+        </div>
+        <div class="tool-cluster">
+          <button class="page-arrow" type="button" id="prevBtn" aria-label="이전 페이지">‹</button>
+          <div class="page-chip" id="pageIndicator">1 / 1</div>
+          <button class="page-arrow" type="button" id="nextBtn" aria-label="다음 페이지">›</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="viewer-stage" id="viewerStage">
+      <div class="loading-screen" id="loadingScreen">
+        <div class="status-card">
+          <b>LOADING</b>
+          <h2>교재 화면을 준비하고 있습니다.</h2>
+          <p>원본 형식에 맞춰 GFIELD E-BOOK 뷰어를 맞추고 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="error-screen" id="errorScreen" hidden>
+        <div class="status-card">
+          <b>CHECK SOURCE</b>
+          <h2>교재 원본을 불러오지 못했습니다.</h2>
+          <p id="errorMessage">파일 경로 또는 원본 구조를 다시 확인해 주세요.</p>
+        </div>
+      </div>
+
+      <section class="html-stage" id="htmlStage">
+        <div class="spread single" id="spread">
+          <div class="page-shell" id="leftShell">
+            <iframe id="leftFrame" title="왼쪽 페이지"></iframe>
+          </div>
+          <div class="page-shell hidden" id="rightShell">
+            <iframe id="rightFrame" title="오른쪽 페이지"></iframe>
+          </div>
+        </div>
+
+        <button class="stage-zone left" id="leftZone" aria-label="이전 페이지로 이동">
+          <span class="ghost-arrow">‹</span>
+        </button>
+        <button class="stage-zone right" id="rightZone" aria-label="다음 페이지로 이동">
+          <span class="ghost-arrow">›</span>
+        </button>
+
+        <iframe class="preload-frame" id="loaderFrame" title="원본 로더"></iframe>
+      </section>
+
+      <section class="pdf-stage" id="pdfStage" hidden>
+        <div class="pdf-frame-shell">
+          <iframe class="pdf-frame" id="pdfFrame" title="PDF 교재"></iframe>
+        </div>
+      </section>
+    </main>
+
+    <footer class="viewer-footer">
+      <div class="viewer-status">
+        <span id="modeStatus">한 페이지 보기</span>
+        <span id="pageStatus">1쪽</span>
+        <span id="sourceStatus">thinking-basic.html</span>
+      </div>
+    </footer>
+  </div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const sourceUrl = params.get('source') || './thinking-basic.html';
+  const sourceName = (sourceUrl.split('/').pop() || '').toLowerCase();
+  const isPdfSource = sourceName.endsWith('.pdf');
+
+  const htmlStage = document.getElementById('htmlStage');
+  const pdfStage = document.getElementById('pdfStage');
+  const pdfFrame = document.getElementById('pdfFrame');
+  const loaderFrame = document.getElementById('loaderFrame');
+  const leftFrame = document.getElementById('leftFrame');
+  const rightFrame = document.getElementById('rightFrame');
+  const spread = document.getElementById('spread');
+  const loadingScreen = document.getElementById('loadingScreen');
+  const errorScreen = document.getElementById('errorScreen');
+  const errorMessage = document.getElementById('errorMessage');
+  const singleModeBtn = document.getElementById('singleModeBtn');
+  const bookModeBtn = document.getElementById('bookModeBtn');
+  const pageIndicator = document.getElementById('pageIndicator');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const viewerAiBtn = document.getElementById('viewerAiBtn');
+  const viewerPrintBtn = document.getElementById('viewerPrintBtn');
+  const viewerExitBtn = document.getElementById('viewerExitBtn');
+  const leftZone = document.getElementById('leftZone');
+  const rightZone = document.getElementById('rightZone');
+  const modeStatus = document.getElementById('modeStatus');
+  const pageStatus = document.getElementById('pageStatus');
+  const sourceStatus = document.getElementById('sourceStatus');
+
+  let pageCount = 0;
+  let pageDocuments = [];
+  let sourceHeadMarkup = '';
+  let mode = 'single';
+  let currentIndex = 0;
+  let touchStartX = 0;
+  let loaderReady = false;
+
+  sourceStatus.textContent = sourceUrl.split('/').pop() || 'thinking-basic.html';
+
+  function showError(message){
+    loadingScreen.hidden = true;
+    errorScreen.hidden = false;
+    errorMessage.textContent = message;
+  }
+
+  function buildPageDocument(pageMarkup){
+    return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+${sourceHeadMarkup}
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#09101c;}
+  body{display:flex;align-items:center;justify-content:center;padding:20px 0;}
+  .page{
+    margin:0 auto !important;
+    box-shadow:0 22px 52px rgba(0,0,0,.34) !important;
+    page-break-after:auto !important;
+  }
+  ::-webkit-scrollbar{display:none}
+</style>
+</head>
+<body>
+${pageMarkup}
+</body>
+</html>`;
+  }
+
+  function switchToPdfMode(){
+    htmlStage.hidden = true;
+    pdfStage.hidden = false;
+    bookModeBtn.disabled = true;
+    bookModeBtn.classList.add('disabled');
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    leftZone.classList.add('disabled');
+    rightZone.classList.add('disabled');
+    singleModeBtn.classList.add('active');
+    bookModeBtn.classList.remove('active');
+    modeStatus.textContent = 'PDF 보기';
+    pageStatus.textContent = 'PDF 시험 보기';
+    pageIndicator.textContent = 'PDF';
+    pdfFrame.src = sourceUrl + '#toolbar=1&navpanes=0&view=FitH';
+    loadingScreen.hidden = true;
+  }
+
+  function getPageNodes(doc){
+    return [...doc.querySelectorAll('.page')];
+  }
+
+  function captureSourceMarkup(doc){
+    sourceHeadMarkup = [...doc.head.querySelectorAll('style,link[rel="stylesheet"]')]
+      .map((node) => node.outerHTML)
+      .join('\n');
+    const pages = getPageNodes(doc);
+    pageDocuments = pages.map((pageNode) => buildPageDocument(pageNode.outerHTML));
+  }
+
+  function usePageData(data){
+    sourceHeadMarkup = data.headMarkup || '';
+    pageDocuments = (data.pages || []).map((pageMarkup) => buildPageDocument(pageMarkup));
+    pageCount = pageDocuments.length;
+    if(!pageCount){
+      showError('저장된 페이지 데이터가 비어 있습니다. 교재 데이터 파일을 다시 확인해 주세요.');
+      return false;
+    }
+    loaderReady = true;
+    renderPages();
+    return true;
+  }
+
+  function tryLoadPageData(){
+    return new Promise((resolve) => {
+      if(!sourceName.endsWith('.html')){
+        resolve(false);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = sourceUrl.replace(/\.html$/i, '-pages.js');
+      script.onload = () => resolve(usePageData(window.GFIELD_PAGE_DATA || {}));
+      script.onerror = () => resolve(false);
+      document.head.appendChild(script);
+    });
+  }
+
+  function setFrameContent(frame, pageIndex){
+    if(pageIndex < 0 || pageIndex >= pageDocuments.length){
+      frame.srcdoc = '';
+      return;
+    }
+    frame.srcdoc = pageDocuments[pageIndex];
+  }
+
+  function getSpreadLabel(){
+    if(mode === 'single') return `${currentIndex + 1} / ${pageCount}`;
+    const start = currentIndex + 1;
+    const end = Math.min(currentIndex + 2, pageCount);
+    return `${start}-${end} / ${pageCount}`;
+  }
+
+  function updateNavState(){
+    const atStart = currentIndex <= 0;
+    const step = mode === 'single' ? 1 : 2;
+    const atEnd = currentIndex >= Math.max(0, pageCount - step);
+    prevBtn.disabled = atStart;
+    nextBtn.disabled = atEnd;
+    leftZone.classList.toggle('disabled', atStart);
+    rightZone.classList.toggle('disabled', atEnd);
+    pageIndicator.textContent = getSpreadLabel();
+    pageStatus.textContent = mode === 'single'
+      ? `${currentIndex + 1}쪽`
+      : `${currentIndex + 1}~${Math.min(currentIndex + 2, pageCount)}쪽`;
+    modeStatus.textContent = mode === 'single' ? '한 페이지 보기' : '책으로 보기';
+  }
+
+  function animateTurn(){
+    spread.classList.add('turning');
+    setTimeout(() => spread.classList.remove('turning'), 280);
+  }
+
+  function renderPages({ animate=false } = {}){
+    if(isPdfSource) return;
+    if(!loaderReady || !pageDocuments.length) return;
+    if(animate) animateTurn();
+    spread.classList.toggle('single', mode === 'single');
+    const rightShell = document.getElementById('rightShell');
+    rightShell.classList.toggle('hidden', mode === 'single');
+    rightShell.style.display = mode === 'single' ? 'none' : '';
+    setFrameContent(leftFrame, currentIndex);
+    if(mode === 'book'){
+      setFrameContent(rightFrame, Math.min(currentIndex + 1, pageCount - 1));
+    }else{
+      rightFrame.srcdoc = '';
+    }
+    updateNavState();
+    loadingScreen.hidden = true;
+  }
+
+  function setMode(nextMode){
+    if(isPdfSource && nextMode === 'book') return;
+    mode = nextMode;
+    if(mode === 'book' && currentIndex % 2 !== 0){
+      currentIndex = Math.max(0, currentIndex - 1);
+    }
+    singleModeBtn.classList.toggle('active', mode === 'single');
+    bookModeBtn.classList.toggle('active', mode === 'book');
+    renderPages({ animate:true });
+  }
+
+  function goNext(){
+    if(isPdfSource) return;
+    const step = mode === 'single' ? 1 : 2;
+    const maxIndex = mode === 'single' ? pageCount - 1 : Math.max(0, pageCount - 2);
+    if(currentIndex >= maxIndex) return;
+    currentIndex = Math.min(currentIndex + step, maxIndex);
+    renderPages({ animate:true });
+  }
+
+  function goPrev(){
+    if(isPdfSource) return;
+    const step = mode === 'single' ? 1 : 2;
+    if(currentIndex <= 0) return;
+    currentIndex = Math.max(0, currentIndex - step);
+    renderPages({ animate:true });
+  }
+
+  function handleTouchStart(event){
+    touchStartX = event.changedTouches[0].clientX;
+  }
+
+  function handleTouchEnd(event){
+    if(isPdfSource) return;
+    const deltaX = event.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(deltaX) < 40) return;
+    if(deltaX < 0) goNext();
+    else goPrev();
+  }
+
+  singleModeBtn.addEventListener('click', () => setMode('single'));
+  bookModeBtn.addEventListener('click', () => setMode('book'));
+  prevBtn.addEventListener('click', goPrev);
+  nextBtn.addEventListener('click', goNext);
+  leftZone.addEventListener('click', goPrev);
+  rightZone.addEventListener('click', goNext);
+  document.getElementById('viewerStage').addEventListener('touchstart', handleTouchStart, { passive:true });
+  document.getElementById('viewerStage').addEventListener('touchend', handleTouchEnd, { passive:true });
+  document.addEventListener('keydown', (event) => {
+    if(event.key === 'ArrowRight') goNext();
+    if(event.key === 'ArrowLeft') goPrev();
+  });
+
+  viewerAiBtn.addEventListener('click', () => {
+    try{
+      if(window.parent && typeof window.parent.openAiModal === 'function'){
+        window.parent.openAiModal();
+        return;
+      }
+    }catch(error){}
+    alert('AI-DOC 질문 기능은 메인 화면에서 함께 연결됩니다.');
+  });
+
+  viewerPrintBtn.addEventListener('click', () => {
+    if(isPdfSource){
+      const popup = window.open(sourceUrl, '_blank', 'noopener,noreferrer');
+      if(popup) return;
+    }
+    window.print();
+  });
+
+  viewerExitBtn.addEventListener('click', () => {
+    if(history.length > 1){
+      history.back();
+      return;
+    }
+    window.close();
+  });
+
+  if(isPdfSource){
+    switchToPdfMode();
+  }else{
+    loaderFrame.addEventListener('load', () => {
+      try{
+        const doc = loaderFrame.contentDocument;
+        if(!doc) throw new Error('loader no document');
+        captureSourceMarkup(doc);
+        pageCount = pageDocuments.length;
+        if(!pageCount) throw new Error('no pages found');
+        loaderReady = true;
+        renderPages();
+      }catch(error){
+        showError('HTML 교재에서 페이지 구조를 읽지 못했습니다. `.page` 구성을 확인해 주세요.');
+      }
+    });
+    tryLoadPageData().then((loadedFromData) => {
+      if(loadedFromData) return;
+      loaderFrame.src = sourceUrl;
+    });
+  }
+</script>
+</body>
+</html>
