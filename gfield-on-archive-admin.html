@@ -99,7 +99,7 @@ body{padding:28px}
 
         <div class="field">
           <label for="aiTutorLink">AI 튜터 링크</label>
-          <input id="aiTutorLink" type="url" placeholder="https://chatgpt.com/g/...">
+          <input id="aiTutorLink" type="password" placeholder="비공개 AI 링크 입력">
         </div>
 
         <div class="status" id="summaryBox"></div>
@@ -136,7 +136,7 @@ body{padding:28px}
 
         <div class="field">
           <label for="githubToken">GitHub Personal Access Token</label>
-          <input id="githubToken" type="password" placeholder="ghp_...">
+          <input id="githubToken" type="password" placeholder="토큰 입력">
           <div class="hint">토큰은 현재 브라우저 localStorage에만 저장됩니다. 이 페이지를 원장님 PC에서만 쓰는 구조를 전제로 합니다.</div>
         </div>
 
@@ -158,7 +158,7 @@ body{padding:28px}
 
       <div class="field">
         <label for="approvedStudents">승인 학생 명단</label>
-        <textarea id="approvedStudents" placeholder="한 줄에 한 명씩 입력&#10;예) 노관호&#10;김명서"></textarea>
+        <textarea id="approvedStudents" placeholder="한 줄에 한 명씩 입력&#10;예) 학생A&#10;학생B"></textarea>
       </div>
 
       <div class="approved-toolbar">
@@ -212,7 +212,7 @@ const DEFAULT_CONFIG={
   courseName:'HS THINKING BASIC',
   ebookViewerUrl:'./books/hs-thinking-basic/viewer.html?source=./thinking-basic.html',
   aiTutorEnabled:true,
-  aiTutorLink:'https://chatgpt.com/g/g-6a209f67658481918e5dfa77c6f86391-hs-habgyeog-jiweon-gfield-on-ai-tyuteo',
+  aiTutorLink:'',
   approvedStudents:[],
   topLevelGroups:[],
   lectureButtons:[]

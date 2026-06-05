@@ -1066,7 +1066,7 @@ linear-gradient(135deg,#0a111b,#132433 58%,#081018);border:1px solid rgba(212,17
           <p id="ebookToolbarCopy">승인된 학생만 조용히 이어갈 수 있는 ebook 서재형 뷰어입니다.</p>
         </div>
         <div class="ebook-badges">
-          <span id="ebookStudentBadge">학생 미확인</span>
+          <span id="ebookStudentBadge">승인 학생 뷰어</span>
           <span>강의 연동</span>
           <span>AI 튜터 연결</span>
           <span>인쇄 지원</span>
@@ -1301,7 +1301,7 @@ linear-gradient(135deg,#0a111b,#132433 58%,#081018);border:1px solid rgba(212,17
         <img src="assets/gfield-logo.png" alt="DOCSSAM 전용 AI 튜터 안내 이미지">
         <div class="tutor-visual-note">
           <strong>이름을 기억하는 질문 흐름</strong>
-          <span>노관호, 김명서처럼 학생 이름과 과정을 바탕으로 차분하게 다시 이어주는 전용 AI 튜터를 목표로 합니다.</span>
+          <span>학생 이름과 과정을 바탕으로 차분하게 다시 이어주는 전용 AI 튜터를 목표로 합니다.</span>
         </div>
       </div>
     </div>
@@ -1345,7 +1345,7 @@ linear-gradient(135deg,#0a111b,#132433 58%,#081018);border:1px solid rgba(212,17
 
     <div class="ai-actions">
       <button class="ai-btn btn-copy" type="button" onclick="copyAiPrompt()">1. 질문 복사하기</button>
-      <a class="ai-btn btn-open" id="aiTutorOpenLink" href="https://chatgpt.com/g/g-6a209f67658481918e5dfa77c6f86391-hs-habgyeog-jiweon-gfield-on-ai-tyuteo" target="_blank" rel="noopener noreferrer" onclick="closeAiModal()">2. AI 튜터 열기</a>
+      <a class="ai-btn btn-open" id="aiTutorOpenLink" href="#" target="_blank" rel="noopener noreferrer" onclick="closeAiModal()">2. AI 튜터 열기</a>
     </div>
   </div>
 </div>
@@ -1357,7 +1357,7 @@ const ARCHIVE_DEFAULT_CONFIG={
   courseName:'HS THINKING BASIC',
   ebookViewerUrl:'./books/hs-thinking-basic/viewer.html?source=./thinking-basic.html',
   aiTutorEnabled:true,
-  aiTutorLink:'https://chatgpt.com/g/g-6a209f67658481918e5dfa77c6f86391-hs-habgyeog-jiweon-gfield-on-ai-tyuteo',
+  aiTutorLink:'',
   approvedStudents:[],
   topLevelGroups:[],
   lectureButtons:[]
@@ -1441,11 +1441,11 @@ function setupEbookViewer(){
   }
   if(studentBadge){
     const student=sessionStorage.getItem('gfield_student_name');
-    studentBadge.textContent=student?`${student} 전용 뷰어`:'학생 미확인';
+    studentBadge.textContent=student?`${student} 전용 뷰어`:'승인 학생 뷰어';
   }
   if(badgesWrap){
     badgesWrap.innerHTML=`
-      <span id="ebookStudentBadge">${studentBadge?studentBadge.textContent:'학생 미확인'}</span>
+      <span id="ebookStudentBadge">${studentBadge?studentBadge.textContent:'승인 학생 뷰어'}</span>
       <span>${hasVideoLinks?'강의 가능':'E-BOOK 전용'}</span>
       <span>AI-DOC</span>
       <span>${hasDownloadLinks?'자료 다운로드':'인쇄'}</span>
@@ -1690,8 +1690,9 @@ function applyArchiveConfig(){
   if(courseBox)courseBox.textContent=courseName;
   const aiLink=document.getElementById('aiTutorOpenLink');
   if(aiLink){
-    aiLink.href=archiveConfig.aiTutorLink||ARCHIVE_DEFAULT_CONFIG.aiTutorLink;
-    aiLink.style.display=archiveConfig.aiTutorEnabled===false?'none':'inline-flex';
+    const tutorHref=(archiveConfig.aiTutorLink||ARCHIVE_DEFAULT_CONFIG.aiTutorLink||'').trim();
+    aiLink.href=tutorHref||'#';
+    aiLink.style.display=(archiveConfig.aiTutorEnabled===false || !tutorHref)?'none':'inline-flex';
   }
   arrangeLoginBelowSections();
   setupEbookViewer();
