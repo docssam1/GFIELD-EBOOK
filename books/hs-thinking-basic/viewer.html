@@ -5,124 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>GFIELD E-BOOK</title>
 <style>
-  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
-  :root{--bg:#05070d;--panel:#0a1020;--line:rgba(255,255,255,.08);--gold:#e3c47b;--text:#f8fafc;--muted:#a8b0c3;--shadow:0 18px 60px rgba(0,0,0,.32)}
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0}
-  body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:linear-gradient(180deg,#04060b,#09101b 44%,#05070d);overflow:hidden}
-  .viewer-app{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr)}
-  .viewer-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 14px;border-bottom:1px solid var(--line);background:rgba(7,11,20,.9);backdrop-filter:blur(14px)}
-  .viewer-brand{min-width:0}.brand-kicker{margin:0;color:var(--gold);font-size:11px;font-weight:1000;letter-spacing:.2em}.brand-title{margin:4px 0 0;font-size:clamp(19px,2vw,25px);line-height:1.05;font-weight:1000;letter-spacing:-.04em}
-  .viewer-tools{display:flex;align-items:center;justify-content:flex-end;gap:8px;min-width:0}.tool-cluster{display:flex;align-items:center;gap:6px;padding:4px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
-  .mode-cluster{opacity:.42;transition:opacity .18s ease}.mode-cluster:hover,.mode-cluster:focus-within{opacity:1}.control-btn{border:0;min-width:auto;padding:8px 10px;border-radius:10px;background:transparent;color:#d8e0ee;font-weight:850;font-size:13px;font-family:inherit;cursor:pointer;transition:background .18s ease,color .18s ease,opacity .18s ease,transform .18s ease}.control-btn:hover{background:rgba(255,255,255,.05)}.control-btn:active{transform:translateY(1px)}.control-btn.active{background:rgba(227,196,123,.13);color:#ffe8aa}.control-btn.utility{padding-inline:11px}.control-btn.disabled,.control-btn:disabled{opacity:.35;pointer-events:none}
-  .page-arrow{width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#eef2ff;cursor:pointer;font-size:19px}.page-arrow:disabled{opacity:.28;cursor:default}.page-chip{min-width:80px;text-align:center;font-size:13px;font-weight:900;color:#fff5d8}
-  .viewer-stage{position:relative;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px 14px 18px;background:radial-gradient(circle at top left,rgba(35,84,147,.12),transparent 28%),radial-gradient(circle at bottom right,rgba(227,196,123,.07),transparent 24%)}
-  .html-stage,.pdf-stage{position:relative;min-height:100%}.pdf-stage[hidden],.html-stage[hidden]{display:none}.spread{width:min(100%,1260px);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;transition:transform .24s ease,opacity .24s ease}.spread.turning{transform:translateY(4px);opacity:.88}.spread.single{grid-template-columns:minmax(0,1fr);max-width:920px}
-  .page-shell{position:relative;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:#07101f;box-shadow:var(--shadow);overflow:hidden;aspect-ratio:210/297;min-height:min(82vh,980px)}.page-shell.hidden{display:none}.page-shell iframe{width:100%;height:100%;border:0;display:block;background:#09101c;pointer-events:auto}
-  .pdf-stage{display:flex;align-items:stretch;justify-content:center}.pdf-frame-shell{position:relative;width:min(100%,1100px);min-height:calc(100vh - 92px);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);background:#fff}.pdf-frame{width:100%;height:100%;min-height:calc(100vh - 92px);border:0;display:block;background:#fff}.pdf-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none;font-size:40px;font-weight:1000;letter-spacing:.04em;color:rgba(22,65,124,.10);transform:rotate(-32deg);z-index:3;text-align:center;white-space:nowrap}
-  .stage-zone{position:fixed;top:50%;transform:translateY(-50%);width:54px;height:92px;z-index:8;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.34);font-size:34px;user-select:none;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);backdrop-filter:blur(8px);border-radius:999px;cursor:pointer;transition:opacity .18s ease,background .18s ease,color .18s ease}.stage-zone.left{left:12px}.stage-zone.right{right:12px}.stage-zone:hover{color:rgba(255,255,255,.62);background:rgba(255,255,255,.06)}.stage-zone.disabled{opacity:0;pointer-events:none}.ghost-arrow{line-height:1}
-  .loading-screen,.error-screen{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;z-index:10;background:linear-gradient(180deg,rgba(6,10,18,.94),rgba(6,10,18,.98))}.loading-screen[hidden],.error-screen[hidden]{display:none}.status-card{max-width:520px;padding:26px 24px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(13,20,36,.94),rgba(9,14,24,.96));box-shadow:var(--shadow)}.status-card b{color:var(--gold);letter-spacing:.2em;font-size:12px}.status-card h2{margin:10px 0 0;font-size:28px;line-height:1.2;letter-spacing:-.04em}.status-card p{margin:12px 0 0;color:var(--muted);line-height:1.7;word-break:keep-all}.preload-frame{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;inset:-9999px auto auto -9999px}
-  .mobile-hint{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:7;padding:7px 11px;border-radius:999px;background:rgba(2,6,14,.55);border:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.62);font-size:11px;font-weight:800;pointer-events:none}
-  @media(max-width:960px){.viewer-app{grid-template-rows:auto minmax(0,1fr)}.viewer-header{display:grid;grid-template-columns:1fr;gap:8px}.viewer-tools{justify-content:flex-start;overflow-x:auto;padding-bottom:2px}.mode-cluster{display:none}.control-btn{font-size:12px;padding:8px 9px}.viewer-stage{padding:10px 8px 18px}.spread{gap:10px}.page-shell{border-radius:12px;min-height:calc(100vh - 140px)}.stage-zone{width:44px;height:76px;font-size:30px}.stage-zone.left{left:6px}.stage-zone.right{right:6px}.pdf-frame-shell,.pdf-frame{min-height:calc(100vh - 136px)}}
-  @media(max-width:640px){.brand-title{font-size:20px}.tool-cluster{gap:4px}.viewerAiBtnText{display:none}.page-chip{min-width:62px}.page-arrow{width:34px;height:34px}.page-shell{min-height:calc(100vh - 130px)}}
-  @media print{body{overflow:visible;background:white}.viewer-header,.stage-zone,.mobile-hint,.loading-screen,.error-screen{display:none!important}.viewer-app{display:block;height:auto}.viewer-stage{overflow:visible;padding:0;background:white}.page-shell{box-shadow:none;border:0;border-radius:0;min-height:auto;aspect-ratio:auto}.page-shell iframe{height:100vh}}
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+:root{--bg:#05070d;--line:rgba(255,255,255,.08);--gold:#e3c47b;--text:#f8fafc;--muted:#a8b0c3;--shadow:0 18px 60px rgba(0,0,0,.32)}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:linear-gradient(180deg,#04060b,#09101b 44%,#05070d);overflow:hidden}
+.viewer-app{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.viewer-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:rgba(7,11,20,.88);backdrop-filter:blur(12px)}
+.viewer-brand{min-width:0}.brand-kicker{margin:0;color:var(--gold);font-size:11px;font-weight:1000;letter-spacing:.18em}.brand-title{margin:4px 0 0;font-size:clamp(18px,2vw,24px);font-weight:1000;letter-spacing:-.04em}
+.viewer-tools{display:flex;align-items:center;gap:8px;overflow-x:auto}.tool-cluster{display:flex;align-items:center;gap:6px;padding:4px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
+.control-btn{border:0;padding:8px 10px;border-radius:10px;background:transparent;color:#d8e0ee;font-weight:850;font-size:13px;font-family:inherit;cursor:pointer}.control-btn:hover{background:rgba(255,255,255,.05)}
+.page-arrow{width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#eef2ff;cursor:pointer;font-size:19px}.page-arrow:disabled{opacity:.28;cursor:default}.page-chip{min-width:80px;text-align:center;font-size:13px;font-weight:900;color:#fff5d8}
+.viewer-stage{position:relative;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:14px;background:radial-gradient(circle at top left,rgba(35,84,147,.12),transparent 28%),radial-gradient(circle at bottom right,rgba(227,196,123,.07),transparent 24%)}
+.spread{width:min(100%,920px);margin:0 auto}.page-shell{position:relative;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:#07101f;box-shadow:var(--shadow);overflow:hidden;min-height:min(88vh,1200px)}
+.page-shell iframe{width:100%;height:min(88vh,1200px);border:0;display:block;background:#09101c;pointer-events:auto}
+.stage-zone{position:fixed;top:50%;transform:translateY(-50%);width:54px;height:92px;z-index:8;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.34);font-size:34px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);backdrop-filter:blur(8px);border-radius:999px;cursor:pointer}.stage-zone.left{left:12px}.stage-zone.right{right:12px}.stage-zone.disabled{opacity:0;pointer-events:none}
+.loading-screen,.error-screen{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;z-index:10;background:linear-gradient(180deg,rgba(6,10,18,.94),rgba(6,10,18,.98))}.loading-screen[hidden],.error-screen[hidden]{display:none}.status-card{max-width:520px;padding:26px 24px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(13,20,36,.94),rgba(9,14,24,.96));box-shadow:var(--shadow)}.status-card b{color:var(--gold);letter-spacing:.2em;font-size:12px}.status-card h2{margin:10px 0 0;font-size:28px}.status-card p{margin:12px 0 0;color:var(--muted);line-height:1.7}
+.preload-frame{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;inset:-9999px auto auto -9999px}
+@media(max-width:960px){.viewer-header{display:grid;grid-template-columns:1fr;gap:8px}.viewer-stage{padding:10px 8px 18px}.page-shell{border-radius:12px;min-height:calc(100vh - 120px)}.page-shell iframe{height:calc(100vh - 120px)}.stage-zone{width:44px;height:76px;font-size:30px}.stage-zone.left{left:6px}.stage-zone.right{right:6px}}
 </style>
 </head>
 <body>
-  <div class="viewer-app">
-    <header class="viewer-header">
-      <div class="viewer-brand"><p class="brand-kicker">GFIELD-ON</p><h1 class="brand-title">GFIELD E-BOOK</h1></div>
-      <div class="viewer-tools">
-        <div class="tool-cluster">
-          <button class="control-btn utility" type="button" id="viewerAiBtn">에이독쌤에게 질문</button>
-          <button class="control-btn utility" type="button" id="viewerPrintBtn">인쇄</button>
-          <button class="control-btn utility" type="button" id="viewerExitBtn">나가기</button>
-        </div>
-        <div class="tool-cluster mode-cluster" role="tablist" aria-label="보기 모드">
-          <button class="control-btn active" type="button" id="singleModeBtn">1쪽</button>
-          <button class="control-btn" type="button" id="bookModeBtn">책보기</button>
-        </div>
-        <div class="tool-cluster">
-          <button class="page-arrow" type="button" id="prevBtn" aria-label="이전 페이지">‹</button>
-          <div class="page-chip" id="pageIndicator">1 / 1</div>
-          <button class="page-arrow" type="button" id="nextBtn" aria-label="다음 페이지">›</button>
-        </div>
-      </div>
-    </header>
-    <main class="viewer-stage" id="viewerStage">
-      <div class="loading-screen" id="loadingScreen"><div class="status-card"><b>LOADING</b><h2>교재 화면을 준비하고 있습니다.</h2><p>실제 공부 화면에 맞춰 단순하게 불러오고 있습니다.</p></div></div>
-      <div class="error-screen" id="errorScreen" hidden><div class="status-card"><b>CHECK SOURCE</b><h2>교재 원본을 불러오지 못했습니다.</h2><p id="errorMessage">파일 경로 또는 원본 구조를 다시 확인해 주세요.</p></div></div>
-      <section class="html-stage" id="htmlStage">
-        <div class="spread single" id="spread">
-          <div class="page-shell" id="leftShell"><iframe id="leftFrame" title="교재 페이지"></iframe></div>
-          <div class="page-shell hidden" id="rightShell"><iframe id="rightFrame" title="오른쪽 페이지"></iframe></div>
-        </div>
-        <button class="stage-zone left" id="leftZone" aria-label="이전 페이지로 이동"><span class="ghost-arrow">‹</span></button>
-        <button class="stage-zone right" id="rightZone" aria-label="다음 페이지로 이동"><span class="ghost-arrow">›</span></button>
-        <iframe class="preload-frame" id="loaderFrame" title="원본 로더"></iframe>
-      </section>
-      <section class="pdf-stage" id="pdfStage" hidden><div class="pdf-frame-shell"><div class="pdf-watermark" id="pdfWatermark"></div><iframe class="pdf-frame" id="pdfFrame" title="PDF 교재"></iframe></div></section>
-    </main>
-  </div>
-  <div class="mobile-hint" id="mobileHint">화살표 또는 좌우 스와이프로 넘기세요</div>
+<div class="viewer-app">
+<header class="viewer-header">
+<div class="viewer-brand"><p class="brand-kicker">GFIELD-ON</p><h1 class="brand-title">GFIELD E-BOOK</h1></div>
+<div class="viewer-tools">
+<div class="tool-cluster">
+<button class="control-btn" type="button" id="viewerAiBtn">에이독쌤</button>
+<button class="control-btn" type="button" id="viewerPrintBtn">인쇄</button>
+<button class="control-btn" type="button" id="viewerExitBtn">나가기</button>
+</div>
+<div class="tool-cluster">
+<button class="page-arrow" type="button" id="prevBtn">‹</button>
+<div class="page-chip" id="pageIndicator">1 / 1</div>
+<button class="page-arrow" type="button" id="nextBtn">›</button>
+</div>
+</div>
+</header>
+<main class="viewer-stage" id="viewerStage">
+<div class="loading-screen" id="loadingScreen"><div class="status-card"><b>LOADING</b><h2>교재 화면을 준비하고 있습니다.</h2><p>읽기 편한 E-BOOK 화면으로 불러오고 있습니다.</p></div></div>
+<div class="error-screen" id="errorScreen" hidden><div class="status-card"><b>CHECK SOURCE</b><h2>교재 원본을 불러오지 못했습니다.</h2><p id="errorMessage">파일 경로 또는 원본 구조를 다시 확인해 주세요.</p></div></div>
+<section class="spread" id="spread">
+<div class="page-shell"><iframe id="leftFrame" title="교재 페이지"></iframe></div>
+</section>
+<button class="stage-zone left" id="leftZone">‹</button>
+<button class="stage-zone right" id="rightZone">›</button>
+<iframe class="preload-frame" id="loaderFrame"></iframe>
+</main>
+</div>
 <script>
-  const params = new URLSearchParams(location.search);
-  const sourceUrl = params.get('source') || './thinking-basic.html';
-  const initialPage = Math.max(1, parseInt(params.get('page') || '1', 10) || 1);
-  const initialOffset = Math.min(1, Math.max(0, parseFloat(params.get('offset') || '0') || 0));
-  const queryStudentName = params.get('student') || '';
-  const storedStudentName = sessionStorage.getItem('gfield_student_name') || queryStudentName || '';
-  const watermarkPrefix = 'G!FIELD';
-  const watermarkText = storedStudentName ? `${watermarkPrefix} · ${storedStudentName}` : watermarkPrefix;
-  const sourceName = (sourceUrl.split('/').pop() || '').toLowerCase();
-  const isPdfSource = sourceName.endsWith('.pdf');
-  const htmlStage = document.getElementById('htmlStage');
-  const pdfStage = document.getElementById('pdfStage');
-  const pdfFrame = document.getElementById('pdfFrame');
-  const pdfWatermark = document.getElementById('pdfWatermark');
-  const loaderFrame = document.getElementById('loaderFrame');
-  const leftFrame = document.getElementById('leftFrame');
-  const rightFrame = document.getElementById('rightFrame');
-  const spread = document.getElementById('spread');
-  const viewerStage = document.getElementById('viewerStage');
-  const loadingScreen = document.getElementById('loadingScreen');
-  const errorScreen = document.getElementById('errorScreen');
-  const errorMessage = document.getElementById('errorMessage');
-  const singleModeBtn = document.getElementById('singleModeBtn');
-  const bookModeBtn = document.getElementById('bookModeBtn');
-  const pageIndicator = document.getElementById('pageIndicator');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const viewerAiBtn = document.getElementById('viewerAiBtn');
-  const viewerPrintBtn = document.getElementById('viewerPrintBtn');
-  const viewerExitBtn = document.getElementById('viewerExitBtn');
-  const leftZone = document.getElementById('leftZone');
-  const rightZone = document.getElementById('rightZone');
-  let pageCount=0,pageDocuments=[],sourceHeadMarkup='',mode='single',currentIndex=0,touchStartX=0,loaderReady=false,pendingOffset=initialOffset;
-  if(pdfWatermark) pdfWatermark.textContent = watermarkText;
-  function showError(message){loadingScreen.hidden=true;errorScreen.hidden=false;errorMessage.textContent=message}
-  function buildPageDocument(pageMarkup){return `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">${sourceHeadMarkup}<style>html,body{margin:0;min-height:100%;overflow:auto;background:#09101c;-webkit-overflow-scrolling:touch}body{display:block;padding:18px 0 26px;position:relative}.student-watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:40px;font-weight:1000;letter-spacing:.04em;color:rgba(22,65,124,.12);white-space:nowrap;user-select:none;pointer-events:none;z-index:3}.page{margin:0 auto 24px!important;box-shadow:0 16px 42px rgba(0,0,0,.24)!important;page-break-after:auto!important;position:relative;z-index:2;max-width:100%!important}::-webkit-scrollbar{width:7px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:999px}@media(max-width:640px){body{padding:10px 0 20px}.student-watermark{font-size:30px}.page{box-shadow:none!important}}</style></head><body><div class="student-watermark">${watermarkText}</div>${pageMarkup}</body></html>`}
-  function switchToPdfMode(){htmlStage.hidden=true;pdfStage.hidden=false;bookModeBtn.disabled=true;bookModeBtn.classList.add('disabled');prevBtn.disabled=true;nextBtn.disabled=true;leftZone.classList.add('disabled');rightZone.classList.add('disabled');singleModeBtn.classList.add('active');bookModeBtn.classList.remove('active');pageIndicator.textContent='PDF';pdfFrame.src=sourceUrl+'#toolbar=1&navpanes=0&view=FitH';loadingScreen.hidden=true}
-  function getPageNodes(doc){return [...doc.querySelectorAll('.page')]}
-  function captureSourceMarkup(doc){sourceHeadMarkup=[...doc.head.querySelectorAll('style,link[rel="stylesheet"]')].map(n=>n.outerHTML).join('\n');const pages=getPageNodes(doc);pageDocuments=pages.map(p=>buildPageDocument(p.outerHTML))}
-  function usePageData(data){sourceHeadMarkup=data.headMarkup||'';pageDocuments=(data.pages||[]).map(p=>buildPageDocument(p));pageCount=pageDocuments.length;if(!pageCount){showError('저장된 페이지 데이터가 비어 있습니다. 교재 데이터 파일을 다시 확인해 주세요.');return false}loaderReady=true;renderPages();return true}
-  function tryLoadPageData(){return new Promise(resolve=>{if(!sourceName.endsWith('.html')){resolve(false);return}const script=document.createElement('script');script.src=sourceUrl.replace(/\.html$/i,'-pages.js');script.onload=()=>resolve(usePageData(window.GFIELD_PAGE_DATA||{}));script.onerror=()=>resolve(false);document.head.appendChild(script)})}
-  function setFrameContent(frame,pageIndex){if(pageIndex<0||pageIndex>=pageDocuments.length){frame.srcdoc='';return}frame.srcdoc=pageDocuments[pageIndex]}
-  function applyFrameOffset(frame){if(!frame)return;const desired=pendingOffset;frame.onload=()=>{try{const doc=frame.contentDocument;if(!doc)return;const root=doc.scrollingElement||doc.documentElement||doc.body;const maxScroll=Math.max(0,root.scrollHeight-root.clientHeight);root.scrollTop=Math.round(maxScroll*desired)}catch(e){}pendingOffset=0}}
-  function getSpreadLabel(){if(mode==='single')return `${currentIndex+1} / ${pageCount}`;const start=currentIndex+1,end=Math.min(currentIndex+2,pageCount);return `${start}-${end} / ${pageCount}`}
-  function updateNavState(){const atStart=currentIndex<=0;const step=mode==='single'?1:2;const atEnd=currentIndex>=Math.max(0,pageCount-step);prevBtn.disabled=atStart;nextBtn.disabled=atEnd;leftZone.classList.toggle('disabled',atStart);rightZone.classList.toggle('disabled',atEnd);pageIndicator.textContent=getSpreadLabel()}
-  function animateTurn(){spread.classList.add('turning');setTimeout(()=>spread.classList.remove('turning'),220)}
-  function renderPages({animate=false}={}){if(isPdfSource)return;if(!loaderReady||!pageDocuments.length)return;if(animate)animateTurn();spread.classList.toggle('single',mode==='single');rightShell.classList.toggle('hidden',mode==='single');rightShell.style.display=mode==='single'?'none':'';applyFrameOffset(leftFrame);setFrameContent(leftFrame,currentIndex);if(mode==='book'){applyFrameOffset(rightFrame);setFrameContent(rightFrame,Math.min(currentIndex+1,pageCount-1))}else{rightFrame.srcdoc=''}updateNavState();loadingScreen.hidden=true;viewerStage.scrollTop=0}
-  function setMode(nextMode){if(isPdfSource&&nextMode==='book')return;mode=nextMode;if(mode==='book'&&currentIndex%2!==0)currentIndex=Math.max(0,currentIndex-1);singleModeBtn.classList.toggle('active',mode==='single');bookModeBtn.classList.toggle('active',mode==='book');renderPages({animate:true})}
-  function goNext(){if(isPdfSource)return;const step=mode==='single'?1:2;const maxIndex=mode==='single'?pageCount-1:Math.max(0,pageCount-2);if(currentIndex>=maxIndex)return;currentIndex=Math.min(currentIndex+step,maxIndex);renderPages({animate:true})}
-  function goPrev(){if(isPdfSource)return;const step=mode==='single'?1:2;if(currentIndex<=0)return;currentIndex=Math.max(0,currentIndex-step);renderPages({animate:true})}
-  function handleTouchStart(e){touchStartX=e.changedTouches[0].clientX}
-  function handleTouchEnd(e){if(isPdfSource)return;const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)<46)return;if(dx<0)goNext();else goPrev()}
-  singleModeBtn.addEventListener('click',()=>setMode('single'));bookModeBtn.addEventListener('click',()=>setMode('book'));prevBtn.addEventListener('click',goPrev);nextBtn.addEventListener('click',goNext);leftZone.addEventListener('click',goPrev);rightZone.addEventListener('click',goNext);viewerStage.addEventListener('touchstart',handleTouchStart,{passive:true});viewerStage.addEventListener('touchend',handleTouchEnd,{passive:true});document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')goNext();if(e.key==='ArrowLeft')goPrev()});
-  viewerAiBtn.addEventListener('click',()=>{try{if(window.parent&&typeof window.parent.openAiModal==='function'){window.parent.openAiModal();return}}catch(e){}alert('AI-DOC 질문 기능은 메인 화면에서 함께 연결됩니다.')});
-  viewerPrintBtn.addEventListener('click',()=>{if(isPdfSource){const popup=window.open(sourceUrl,'_blank','noopener,noreferrer');if(popup)return}window.print()});
-  viewerExitBtn.addEventListener('click',()=>{if(history.length>1){history.back();return}window.close()});
-  if(isPdfSource){switchToPdfMode()}else{loaderFrame.addEventListener('load',()=>{try{const doc=loaderFrame.contentDocument;if(!doc)throw new Error('loader no document');captureSourceMarkup(doc);pageCount=pageDocuments.length;if(!pageCount)throw new Error('no pages found');loaderReady=true;currentIndex=Math.min(Math.max(0,initialPage-1),Math.max(0,pageDocuments.length-1));renderPages()}catch(e){showError('HTML 교재에서 페이지 구조를 읽지 못했습니다. `.page` 구성을 확인해 주세요.')}});tryLoadPageData().then(loaded=>{if(loaded){currentIndex=Math.min(Math.max(0,initialPage-1),Math.max(0,pageDocuments.length-1));renderPages();return}loaderFrame.src=sourceUrl})}
+const params=new URLSearchParams(location.search);
+const sourceUrl=params.get('source')||'./thinking-basic.html';
+const initialPage=Math.max(1,parseInt(params.get('page')||'1',10)||1);
+const storedStudentName=sessionStorage.getItem('gfield_student_name')||'';
+const watermarkPrefix='G!FIELD';
+const watermarkText=storedStudentName?`${watermarkPrefix} · ${storedStudentName}`:watermarkPrefix;
+const sourceName=(sourceUrl.split('/').pop()||'').toLowerCase();
+const leftFrame=document.getElementById('leftFrame');
+const loaderFrame=document.getElementById('loaderFrame');
+const loadingScreen=document.getElementById('loadingScreen');
+const errorScreen=document.getElementById('errorScreen');
+const errorMessage=document.getElementById('errorMessage');
+const pageIndicator=document.getElementById('pageIndicator');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const leftZone=document.getElementById('leftZone');
+const rightZone=document.getElementById('rightZone');
+const viewerStage=document.getElementById('viewerStage');
+let pageDocuments=[];let pageCount=0;let currentIndex=0;let touchStartX=0;let sourceHeadMarkup='';
+function showError(message){loadingScreen.hidden=true;errorScreen.hidden=false;errorMessage.textContent=message}
+function buildPageDocument(pageMarkup){return `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">${sourceHeadMarkup}<style>html,body{margin:0;min-height:100%;overflow:auto;background:#09101c;-webkit-overflow-scrolling:touch}body{padding:14px 0 24px;position:relative}.student-watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:40px;font-weight:1000;letter-spacing:.04em;color:rgba(22,65,124,.12);white-space:nowrap;pointer-events:none;z-index:3}.page{margin:0 auto 24px!important;position:relative;z-index:2;max-width:100%!important}::-webkit-scrollbar{width:7px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:999px}</style></head><body><div class="student-watermark">${watermarkText}</div>${pageMarkup}</body></html>`}
+function setFrameContent(pageIndex){if(pageIndex<0||pageIndex>=pageDocuments.length){leftFrame.srcdoc='';return}leftFrame.srcdoc=pageDocuments[pageIndex]}
+function updateNavState(){const atStart=currentIndex<=0;const atEnd=currentIndex>=pageCount-1;prevBtn.disabled=atStart;nextBtn.disabled=atEnd;leftZone.classList.toggle('disabled',atStart);rightZone.classList.toggle('disabled',atEnd);pageIndicator.textContent=`${currentIndex+1} / ${pageCount}`}
+function renderPage(){setFrameContent(currentIndex);updateNavState();loadingScreen.hidden=true;viewerStage.scrollTop=0}
+function goNext(){if(currentIndex>=pageCount-1)return;currentIndex++;renderPage()}
+function goPrev(){if(currentIndex<=0)return;currentIndex--;renderPage()}
+function handleTouchStart(e){touchStartX=e.changedTouches[0].clientX}
+function handleTouchEnd(e){const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)<46)return;if(dx<0)goNext();else goPrev()}
+prevBtn.addEventListener('click',goPrev);nextBtn.addEventListener('click',goNext);leftZone.addEventListener('click',goPrev);rightZone.addEventListener('click',goNext);
+viewerStage.addEventListener('touchstart',handleTouchStart,{passive:true});viewerStage.addEventListener('touchend',handleTouchEnd,{passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')goNext();if(e.key==='ArrowLeft')goPrev()});
+document.getElementById('viewerPrintBtn').addEventListener('click',()=>window.print());
+document.getElementById('viewerExitBtn').addEventListener('click',()=>{if(history.length>1){history.back();return}window.close()});
+document.getElementById('viewerAiBtn').addEventListener('click',()=>alert('AI-DOC 질문 기능은 메인 화면과 연결됩니다.'));
+loaderFrame.addEventListener('load',()=>{try{const doc=loaderFrame.contentDocument;if(!doc)throw new Error('loader no document');sourceHeadMarkup=[...doc.head.querySelectorAll('style,link[rel="stylesheet"]')].map(n=>n.outerHTML).join('\n');const pages=[...doc.querySelectorAll('.page')];pageDocuments=pages.map(p=>buildPageDocument(p.outerHTML));pageCount=pageDocuments.length;if(!pageCount)throw new Error('no pages found');currentIndex=Math.min(Math.max(0,initialPage-1),Math.max(0,pageCount-1));renderPage()}catch(e){showError('HTML 교재에서 페이지 구조를 읽지 못했습니다. `.page` 구성을 확인해 주세요.')}});
+loaderFrame.src=sourceUrl;
 </script>
 </body>
 </html>
