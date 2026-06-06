@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GFIELD-ON BASIC 실제 뷰어 테스트</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+:root{--bg:#03070d;--panel:#07111f;--panel2:#0c1728;--gold:#d4af37;--gold2:#f8dd83;--line:rgba(255,255,255,.1);--muted:#9ca3af}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#02050b;color:#f8fafc;font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif}body{background:linear-gradient(145deg,#02050b,#07111f 58%,#02050b)}button,a{font-family:inherit}.app{height:100%;display:grid;grid-template-rows:64px minmax(0,1fr)}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 16px;border-bottom:1px solid var(--line);background:rgba(5,9,17,.88);backdrop-filter:blur(16px)}.brand{display:flex;align-items:baseline;gap:10px;min-width:0}.brand b{font-size:22px;font-weight:1000;letter-spacing:-.04em}.brand span{color:var(--gold2);font-size:11px;font-weight:1000;letter-spacing:.2em;white-space:nowrap}.top-actions{display:flex;gap:8px;align-items:center}.top-actions a,.top-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#f8fafc;text-decoration:none;font-size:12px;font-weight:900;cursor:pointer}.top-actions .primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#07111f;border:0}.workspace{min-height:0;display:grid;grid-template-columns:330px minmax(0,1fr);gap:0}.side{min-height:0;overflow:auto;border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(12,23,40,.96),rgba(5,10,18,.98));padding:16px}.student-card{border:1px solid rgba(212,175,55,.22);background:radial-gradient(circle at 100% 0,rgba(248,221,131,.16),transparent 30%),rgba(255,255,255,.04);border-radius:22px;padding:16px;margin-bottom:14px}.student-card small{display:block;color:var(--gold2);font-size:11px;font-weight:1000;letter-spacing:.18em}.student-card h1{margin:8px 0 0;font-size:24px;line-height:1.08;font-weight:1000;letter-spacing:-.055em}.student-card p{margin:10px 0 0;color:#cbd5e1;font-size:13px;line-height:1.65}.group{margin-top:14px}.group-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px}.group-title b{color:var(--gold2);font-size:12px;font-weight:1000;letter-spacing:.16em}.group-title span{color:#8fa0b8;font-size:11px;font-weight:900}.lesson-list{display:grid;gap:8px}.lesson-btn{width:100%;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);color:#f8fafc;border-radius:16px;padding:13px 12px;text-align:left;cursor:pointer;transition:.16s}.lesson-btn:hover,.lesson-btn.active{border-color:rgba(212,175,55,.34);background:rgba(212,175,55,.1);transform:translateY(-1px)}.lesson-btn strong{display:block;font-size:14px;line-height:1.35;font-weight:1000;letter-spacing:-.035em}.lesson-btn span{display:block;margin-top:5px;color:#aeb8c8;font-size:12px;line-height:1.45}.lesson-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.lesson-meta em{font-style:normal;display:inline-flex;align-items:center;min-height:24px;padding:0 8px;border-radius:999px;background:rgba(255,255,255,.06);color:#dbe4ef;font-size:10px;font-weight:900}.viewer-wrap{min-height:0;position:relative;background:radial-gradient(circle at top left,rgba(212,175,55,.07),transparent 28%),#05070d}.viewer-frame{width:100%;height:100%;border:0;display:block;background:#05070d}.start-screen{position:absolute;inset:0;z-index:5;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 35% 20%,rgba(248,221,131,.16),transparent 28%),linear-gradient(145deg,#07111f,#06101c 60%,#02050b)}.start-card{width:min(620px,100%);border:1px solid rgba(212,175,55,.22);border-radius:30px;background:rgba(8,14,25,.86);box-shadow:0 30px 90px rgba(0,0,0,.35);padding:30px;text-align:center}.start-card b{color:var(--gold2);font-size:12px;font-weight:1000;letter-spacing:.22em}.start-card h2{margin:12px 0 0;font-size:42px;line-height:1.06;font-weight:1000;letter-spacing:-.07em}.start-card p{margin:14px auto 0;max-width:520px;color:#cbd5e1;font-size:15px;line-height:1.75}.start-card button{margin-top:22px;min-height:56px;padding:0 30px;border:0;border-radius:18px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#07111f;font-size:16px;font-weight:1000;letter-spacing:.08em;cursor:pointer}.video-open{display:inline-flex;margin-top:9px;color:#f8dd83;font-size:11px;font-weight:1000;text-decoration:none;letter-spacing:.05em}.notice{margin-top:14px;padding:13px 14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);color:#b9c3d2;font-size:12px;line-height:1.65}@media(max-width:900px){.workspace{grid-template-columns:1fr}.side{display:none}.topbar{height:auto;min-height:64px}.brand span{display:none}.top-actions a:not(.primary){display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><b>GFIELD-ON BASIC VIEWER</b><span>실제 뷰어 테스트</span></div>
+    <div class="top-actions">
+      <button class="primary" type="button" id="quickStartBtn">시작하기</button>
+      <button type="button" id="bookOnlyBtn">책만 보기</button>
+      <a href="./gfield-on-platform-home-v2-integrated.html">홈 v2</a>
+    </div>
+  </header>
+  <main class="workspace">
+    <aside class="side">
+      <section class="student-card">
+        <small>HS THINKING BASIC</small>
+        <h1 id="sideStudentTitle">노관호의<br>실제 교재 뷰어</h1>
+        <p>왼쪽 강의 버튼을 누르면 BASIC 교재가 해당 쪽으로 이동합니다. 현재는 실제 viewer.html을 iframe으로 띄워 테스트합니다.</p>
+      </section>
+      <section class="group">
+        <div class="group-title"><b>문제푸는 방법 찾기(1)</b><span>2개</span></div>
+        <div class="lesson-list">
+          <button class="lesson-btn" data-page="2" data-offset="0.0" data-video="https://youtu.be/20OIED2hezI?si=nooj_2XXt9oRVDcs"><strong>1단원 개념</strong><span>실제 개념 유형 1 시작</span><div class="lesson-meta"><em>교재 2쪽</em><em>개념</em></div><a class="video-open" href="https://youtu.be/20OIED2hezI?si=nooj_2XXt9oRVDcs" target="_blank" rel="noopener">영상 열기</a></button>
+          <button class="lesson-btn" data-page="5" data-offset="0.0" data-video="https://youtu.be/20OIED2hezI?si=Eppn2W_4Joe-QZWE&t=1875"><strong>1단원 필수유형</strong><span>필수 유형 1~2 시작</span><div class="lesson-meta"><em>교재 5쪽</em><em>필수유형</em></div><a class="video-open" href="https://youtu.be/20OIED2hezI?si=Eppn2W_4Joe-QZWE&t=1875" target="_blank" rel="noopener">영상 열기</a></button>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-title"><b>문제푸는 방법 찾기(2)</b><span>2개</span></div>
+        <div class="lesson-list">
+          <button class="lesson-btn" data-page="13" data-offset="0.0" data-video="https://youtu.be/HtSd564pCpw?si=15Inv0cVtonKn_ww"><strong>2단원 개념</strong><span>실제 개념 유형 1 시작</span><div class="lesson-meta"><em>교재 13쪽</em><em>개념</em></div><a class="video-open" href="https://youtu.be/HtSd564pCpw?si=15Inv0cVtonKn_ww" target="_blank" rel="noopener">영상 열기</a></button>
+          <button class="lesson-btn" data-page="18" data-offset="0.0" data-video="https://youtu.be/hDPKx7cQtIw"><strong>2단원 필수유형</strong><span>필수 유형 시작</span><div class="lesson-meta"><em>교재 18쪽</em><em>필수유형</em></div><a class="video-open" href="https://youtu.be/hDPKx7cQtIw" target="_blank" rel="noopener">영상 열기</a></button>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-title"><b>규칙 찾아 해결하기(1)</b><span>2개</span></div>
+        <div class="lesson-list">
+          <button class="lesson-btn" data-page="26" data-offset="0.0" data-video="https://youtu.be/8Wz-g95UGVg?si=z-12_yWB0TYpaAFP"><strong>3단원 개념</strong><span>실제 개념 유형 1 시작</span><div class="lesson-meta"><em>교재 26쪽</em><em>개념</em></div><a class="video-open" href="https://youtu.be/8Wz-g95UGVg?si=z-12_yWB0TYpaAFP" target="_blank" rel="noopener">영상 열기</a></button>
+          <button class="lesson-btn" data-page="30" data-offset="0.0" data-video="https://youtu.be/PYHnn1x2dlM?si=1e4X7QOs-TuwEDa6&t=843"><strong>3단원 필수유형</strong><span>필수 유형 시작</span><div class="lesson-meta"><em>교재 30쪽</em><em>필수유형</em></div><a class="video-open" href="https://youtu.be/PYHnn1x2dlM?si=1e4X7QOs-TuwEDa6&t=843" target="_blank" rel="noopener">영상 열기</a></button>
+        </div>
+      </section>
+      <div class="notice">테스트 기준: 기존 BASIC viewer.html은 그대로 사용하고, 이 페이지는 왼쪽 강의 버튼과 쪽수 이동만 감싸는 실제 테스트 껍데기입니다.</div>
+    </aside>
+    <section class="viewer-wrap">
+      <iframe class="viewer-frame" id="bookFrame" title="HS THINKING BASIC 실제 교재 뷰어"></iframe>
+      <div class="start-screen" id="startScreen">
+        <div class="start-card">
+          <b>GFIELD SMART E-BOOK</b>
+          <h2>HS THINKING BASIC<br>실제 뷰어 테스트</h2>
+          <p>시작하기를 누르면 실제 BASIC 교재가 열리고, 왼쪽 강의 버튼으로 개념/필수유형 쪽수 이동을 확인할 수 있습니다.</p>
+          <button type="button" id="startBtn">시작하기</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+(function(){
+  const params=new URLSearchParams(location.search);
+  const student=params.get('student')||sessionStorage.getItem('gfield_student_name')||'노관호';
+  const source=params.get('source')||'./thinking-basic.html';
+  const frame=document.getElementById('bookFrame');
+  const startScreen=document.getElementById('startScreen');
+  const title=document.getElementById('sideStudentTitle');
+  title.innerHTML=student+'의<br>실제 교재 뷰어';
+  try{sessionStorage.setItem('gfield_student_name',student)}catch(e){}
+  function viewerUrl(page,offset){
+    const url=new URL('./books/hs-thinking-basic/viewer.html',location.href);
+    url.searchParams.set('source',source);
+    url.searchParams.set('page',page||1);
+    url.searchParams.set('offset',offset||0);
+    url.searchParams.set('student',student);
+    url.searchParams.set('v','basic-live-test-1');
+    return url.href;
+  }
+  function openPage(page,offset,btn){
+    frame.src=viewerUrl(page,offset);
+    startScreen.hidden=true;
+    document.querySelectorAll('.lesson-btn').forEach(b=>b.classList.remove('active'));
+    if(btn)btn.classList.add('active');
+  }
+  document.getElementById('startBtn').addEventListener('click',()=>openPage(1,0));
+  document.getElementById('quickStartBtn').addEventListener('click',()=>openPage(1,0));
+  document.getElementById('bookOnlyBtn').addEventListener('click',()=>{
+    document.querySelector('.side').style.display='none';
+    document.querySelector('.workspace').style.gridTemplateColumns='1fr';
+  });
+  document.querySelectorAll('.lesson-btn').forEach(btn=>{
+    btn.addEventListener('click',event=>{
+      if(event.target.closest('a'))return;
+      openPage(btn.dataset.page,btn.dataset.offset,btn);
+    });
+  });
+})();
+</script>
+</body>
+</html>
