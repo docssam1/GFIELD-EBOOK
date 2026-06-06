@@ -12,10 +12,12 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;color:
 .viewer-app{min-height:100vh;display:block}.viewer-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 14px;border-bottom:1px solid var(--line);background:rgba(7,11,20,.88);backdrop-filter:blur(14px)}
 .brand-kicker{margin:0;color:var(--gold);font-size:10px;font-weight:1000;letter-spacing:.2em}.brand-title{margin:3px 0 0;font-size:clamp(18px,2vw,24px);line-height:1.05;font-weight:1000;letter-spacing:-.04em}.viewer-tools{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-width:0}.tool-cluster{display:flex;align-items:center;gap:6px;padding:4px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
 .control-btn{border:0;min-width:auto;padding:8px 10px;border-radius:10px;background:transparent;color:#d8e0ee;font-weight:850;font-size:13px;font-family:inherit;cursor:pointer}.control-btn:hover{background:rgba(255,255,255,.05)}.page-chip{min-width:74px;text-align:center;font-size:13px;font-weight:900;color:#fff5d8}.viewer-stage{position:relative;min-height:calc(100vh - 58px);padding:16px 14px 44px;background:radial-gradient(circle at top left,rgba(35,84,147,.12),transparent 28%),radial-gradient(circle at bottom right,rgba(227,196,123,.07),transparent 24%)}
+.pdf-active{padding:0!important;background:none!important}
 .page-stack{width:min(100%,980px);margin:0 auto;display:grid;gap:22px;align-items:start}.page-shell{position:relative;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#07101f;box-shadow:var(--shadow);overflow:hidden;aspect-ratio:210/297}.page-shell iframe{width:100%;height:100%;border:0;display:block;background:#09101c;pointer-events:auto}.page-no{position:absolute;right:10px;bottom:8px;z-index:4;padding:4px 8px;border-radius:999px;background:rgba(3,7,15,.58);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.62);font-size:11px;font-weight:900;pointer-events:none}
-.pdf-stage{width:min(100%,1100px);margin:0 auto}.pdf-frame-shell{position:relative;width:100%;min-height:calc(100vh - 110px);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);background:#fff}.pdf-frame{width:100%;height:calc(100vh - 110px);border:0;display:block;background:#fff}.pdf-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none;font-size:40px;font-weight:1000;letter-spacing:.04em;color:rgba(22,65,124,.10);transform:rotate(-32deg);z-index:3;text-align:center;white-space:nowrap}
+.pdf-stage{width:100%;margin:0 auto}.pdf-scroll{width:100%;padding:16px 0 40px;display:flex;flex-direction:column;align-items:center;gap:18px;background:#1a1e2a}.pdf-page-wrap{position:relative;box-shadow:0 8px 32px rgba(0,0,0,.45);border-radius:4px;overflow:hidden;line-height:0}.pdf-page-wrap canvas{display:block;max-width:100%;height:auto}.pdf-page-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none;font-size:clamp(22px,4vw,40px);font-weight:1000;letter-spacing:.04em;color:rgba(22,65,124,.13);transform:rotate(-32deg);z-index:3;text-align:center;white-space:nowrap;font-family:'Pretendard',-apple-system,sans-serif}.pdf-page-no{position:absolute;right:8px;bottom:6px;z-index:4;padding:3px 8px;border-radius:999px;background:rgba(3,7,15,.52);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:11px;font-weight:900;pointer-events:none}
+@media(max-width:720px){.pdf-scroll{padding:10px 0 32px;gap:12px}}
 .loading-screen,.error-screen{position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center;z-index:30;background:linear-gradient(180deg,rgba(6,10,18,.94),rgba(6,10,18,.98))}.loading-screen[hidden],.error-screen[hidden]{display:none}.status-card{max-width:520px;padding:26px 24px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(13,20,36,.94),rgba(9,14,24,.96));box-shadow:var(--shadow)}.status-card b{color:var(--gold);letter-spacing:.2em;font-size:12px}.status-card h2{margin:10px 0 0;font-size:28px;line-height:1.2;letter-spacing:-.04em}.status-card p{margin:12px 0 0;color:var(--muted);line-height:1.7;word-break:keep-all}.preload-frame{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;inset:-9999px auto auto -9999px}.scroll-hint{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:15;padding:7px 11px;border-radius:999px;background:rgba(2,6,14,.55);border:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.62);font-size:11px;font-weight:800;pointer-events:none}
-@media(max-width:720px){.viewer-header{gap:8px;padding:8px 10px}.viewer-tools{overflow-x:auto}.control-btn{font-size:12px;padding:7px 9px}.viewer-stage{padding:10px 7px 38px}.page-stack{gap:14px}.page-shell{border-radius:10px}.page-chip{min-width:58px}.brand-title{font-size:19px}.pdf-frame-shell{min-height:calc(100vh - 100px)}.pdf-frame{height:calc(100vh - 100px)}}
+@media(max-width:720px){.viewer-header{gap:8px;padding:8px 10px}.viewer-tools{overflow-x:auto}.control-btn{font-size:12px;padding:7px 9px}.viewer-stage{padding:10px 7px 38px}.page-stack{gap:14px}.page-shell{border-radius:10px}.page-chip{min-width:58px}.brand-title{font-size:19px}.pdf-frame-shell{min-height:calc(100vh - 58px)}.pdf-frame{height:calc(100vh - 58px)}}
 @media print{body{background:white}.viewer-header,.scroll-hint,.loading-screen,.error-screen,.page-no{display:none!important}.viewer-stage{padding:0;background:white}.page-stack{display:block;width:100%;margin:0}.page-shell{box-shadow:none;border:0;border-radius:0;page-break-after:always;aspect-ratio:auto}.page-shell iframe{height:100vh}}
 </style>
 </head>
@@ -32,7 +34,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;color:
     <div class="loading-screen" id="loadingScreen"><div class="status-card"><b>LOADING</b><h2>교재 화면을 준비하고 있습니다.</h2><p>모든 페이지를 아래로 이어서 볼 수 있게 불러오고 있습니다.</p></div></div>
     <div class="error-screen" id="errorScreen" hidden><div class="status-card"><b>CHECK SOURCE</b><h2>교재 원본을 불러오지 못했습니다.</h2><p id="errorMessage">파일 경로 또는 원본 구조를 다시 확인해 주세요.</p></div></div>
     <section class="html-stage" id="htmlStage"><div class="page-stack" id="pageStack"></div><iframe class="preload-frame" id="loaderFrame" title="원본 로더"></iframe></section>
-    <section class="pdf-stage" id="pdfStage" hidden><div class="pdf-frame-shell"><div class="pdf-watermark" id="pdfWatermark"></div><iframe class="pdf-frame" id="pdfFrame" title="PDF 교재"></iframe></div></section>
+    <section class="pdf-stage" id="pdfStage" hidden><div class="pdf-scroll" id="pdfScroll"></div></section>
   </main>
 </div>
 <div class="scroll-hint" id="scrollHint">아래로 스크롤해서 모든 페이지를 볼 수 있습니다</div>
@@ -45,22 +47,78 @@ const queryStudentName=params.get('student')||'';
 const storedStudentName=sessionStorage.getItem('gfield_student_name')||queryStudentName||'';
 const watermarkPrefix='G!FIELD';
 const watermarkText=storedStudentName?`${watermarkPrefix} · ${storedStudentName}`:watermarkPrefix;
-const sourceName=(sourceUrl.split('/').pop()||'').toLowerCase();
-const isPdfSource=sourceName.endsWith('.pdf');
-const htmlStage=document.getElementById('htmlStage'),pdfStage=document.getElementById('pdfStage'),pdfFrame=document.getElementById('pdfFrame'),pdfWatermark=document.getElementById('pdfWatermark'),loaderFrame=document.getElementById('loaderFrame'),pageStack=document.getElementById('pageStack'),loadingScreen=document.getElementById('loadingScreen'),errorScreen=document.getElementById('errorScreen'),errorMessage=document.getElementById('errorMessage'),pageIndicator=document.getElementById('pageIndicator'),viewerAiBtn=document.getElementById('viewerAiBtn'),viewerPrintBtn=document.getElementById('viewerPrintBtn'),viewerExitBtn=document.getElementById('viewerExitBtn');
+const isPdfSource=sourceUrl.split('?')[0].toLowerCase().endsWith('.pdf');
+const htmlStage=document.getElementById('htmlStage'),pdfStage=document.getElementById('pdfStage'),pdfScroll=document.getElementById('pdfScroll'),loaderFrame=document.getElementById('loaderFrame'),pageStack=document.getElementById('pageStack'),loadingScreen=document.getElementById('loadingScreen'),errorScreen=document.getElementById('errorScreen'),errorMessage=document.getElementById('errorMessage'),pageIndicator=document.getElementById('pageIndicator'),viewerAiBtn=document.getElementById('viewerAiBtn'),viewerPrintBtn=document.getElementById('viewerPrintBtn'),viewerExitBtn=document.getElementById('viewerExitBtn'),viewerStage=document.getElementById('viewerStage');
 let pageDocuments=[],sourceHeadMarkup='',printPages=[];
-if(pdfWatermark)pdfWatermark.textContent=watermarkText;
 function showError(message){loadingScreen.hidden=true;errorScreen.hidden=false;errorMessage.textContent=message}
 function buildPageDocument(pageMarkup){return `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">${sourceHeadMarkup}<style>html,body{margin:0;min-height:100%;overflow:hidden;background:#09101c}body{display:block;padding:0;position:relative}.student-watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:40px;font-weight:1000;letter-spacing:.04em;color:rgba(22,65,124,.12);white-space:nowrap;user-select:none;pointer-events:none;z-index:3}.page{margin:0 auto!important;box-shadow:none!important;page-break-after:auto!important;position:relative;z-index:2;max-width:100%!important}@media(max-width:640px){.student-watermark{font-size:30px}}</style></head><body><div class="student-watermark">${watermarkText}</div>${pageMarkup}</body></html>`}
 function getPageNodes(doc){return[...doc.querySelectorAll('.page')]}
 function setPageData(pageMarkupList){printPages=pageMarkupList.slice();pageDocuments=pageMarkupList.map(p=>buildPageDocument(p))}
 function captureSourceMarkup(doc){sourceHeadMarkup=[...doc.head.querySelectorAll('style,link[rel="stylesheet"]')].map(n=>n.outerHTML).join('\n');setPageData(getPageNodes(doc).map(p=>p.outerHTML))}
 function usePageData(data){sourceHeadMarkup=data.headMarkup||'';setPageData(data.pages||[]);if(!pageDocuments.length){showError('저장된 페이지 데이터가 비어 있습니다. 교재 데이터 파일을 다시 확인해 주세요.');return false}renderAllPages();return true}
-function tryLoadPageData(){return new Promise(resolve=>{if(!sourceName.endsWith('.html')){resolve(false);return}const script=document.createElement('script');script.src=sourceUrl.replace(/\.html$/i,'-pages.js');script.onload=()=>resolve(usePageData(window.GFIELD_PAGE_DATA||{}));script.onerror=()=>resolve(false);document.head.appendChild(script)})}
+function tryLoadPageData(){return new Promise(resolve=>{if(!sourceUrl.split('?')[0].toLowerCase().endsWith('.html')){resolve(false);return}const script=document.createElement('script');script.src=sourceUrl.replace(/\.html(\?.*)?$/i,'-pages.js');script.onload=()=>resolve(usePageData(window.GFIELD_PAGE_DATA||{}));script.onerror=()=>resolve(false);document.head.appendChild(script)})}
 function renderAllPages(){pageStack.innerHTML='';pageDocuments.forEach((doc,i)=>{const shell=document.createElement('article');shell.className='page-shell';shell.dataset.page=String(i+1);const frame=document.createElement('iframe');frame.title=`교재 ${i+1}쪽`;frame.srcdoc=doc;const badge=document.createElement('div');badge.className='page-no';badge.textContent=`${i+1}쪽`;shell.append(frame,badge);pageStack.appendChild(shell)});pageIndicator.textContent=`${pageDocuments.length}쪽`;loadingScreen.hidden=true;requestAnimationFrame(()=>scrollToInitialPage())}
 function scrollToInitialPage(){const target=pageStack.querySelector(`[data-page="${initialPage}"]`);if(!target)return;const top=target.offsetTop+Math.max(0,target.offsetHeight*initialOffset)-12;window.scrollTo({top,behavior:'auto'})}
-function switchToPdfMode(){htmlStage.hidden=true;pdfStage.hidden=false;pageIndicator.textContent='PDF';pdfFrame.src=sourceUrl+'#toolbar=1&navpanes=0&view=FitH';loadingScreen.hidden=true}
-function printPdfSource(){alert('PDF 원본을 새 창으로 엽니다.\n인쇄창에서 원본 PDF만 인쇄하세요.');const popup=window.open(sourceUrl,'_blank','noopener,noreferrer');if(!popup){alert('팝업이 차단되었습니다. PDF 원본을 새 창으로 연 뒤 인쇄해 주세요.')}}
+function switchToPdfMode(){
+  htmlStage.hidden=true;pdfStage.hidden=false;viewerStage.classList.add('pdf-active');
+  loadingScreen.hidden=false;
+  const script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  script.onload=()=>{
+    pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    loadPdfJs();
+  };
+  script.onerror=()=>showError('PDF.js 라이브러리를 불러오지 못했습니다. 네트워크 연결을 확인해 주세요.');
+  document.head.appendChild(script);
+}
+async function loadPdfJs(){
+  try{
+    const pdf=await pdfjsLib.getDocument(sourceUrl).promise;
+    const total=pdf.numPages;
+    pageIndicator.textContent=`1 / ${total}쪽`;
+    loadingScreen.hidden=true;
+    pdfScroll.innerHTML='';
+    for(let i=1;i<=total;i++){
+      const wrap=document.createElement('div');
+      wrap.className='pdf-page-wrap';
+      wrap.dataset.page=String(i);
+      const canvas=document.createElement('canvas');
+      const wm=document.createElement('div');
+      wm.className='pdf-page-wm';
+      wm.textContent=watermarkText;
+      const badge=document.createElement('div');
+      badge.className='pdf-page-no';
+      badge.textContent=`${i} / ${total}`;
+      wrap.append(canvas,wm,badge);
+      pdfScroll.appendChild(wrap);
+      await renderPdfPage(pdf,i,canvas);
+    }
+    setupPdfScrollIndicator(total);
+  }catch(e){
+    showError('PDF를 불러오지 못했습니다. 파일 경로 또는 CORS 설정을 확인해 주세요.');
+    console.error(e);
+  }
+}
+async function renderPdfPage(pdf,pageNum,canvas){
+  const page=await pdf.getPage(pageNum);
+  const vp=page.getViewport({scale:1});
+  const containerW=Math.min(pdfScroll.clientWidth||window.innerWidth,980)-32;
+  const scale=containerW/vp.width;
+  const scaled=page.getViewport({scale});
+  canvas.width=scaled.width;
+  canvas.height=scaled.height;
+  canvas.style.width=scaled.width+'px';
+  canvas.style.height=scaled.height+'px';
+  await page.render({canvasContext:canvas.getContext('2d'),viewport:scaled}).promise;
+}
+function setupPdfScrollIndicator(total){
+  if(!('IntersectionObserver' in window))return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){const p=e.target.dataset.page;pageIndicator.textContent=`${p} / ${total}쪽`}});
+  },{threshold:0.5});
+  pdfScroll.querySelectorAll('.pdf-page-wrap').forEach(el=>obs.observe(el));
+}
+function printPdfSource(){const popup=window.open(sourceUrl,'_blank','noopener,noreferrer');if(!popup){alert('팝업이 차단되었습니다. PDF 원본을 새 창으로 연 뒤 인쇄해 주세요.')}}
 function printHtmlPages(){if(!printPages.length){alert('아직 인쇄할 교재 페이지가 준비되지 않았습니다.');return}alert('인쇄 대상은 교재 본문만입니다.\n표지 색상과 배경이 빠지면 브라우저 인쇄 설정에서 "배경 그래픽 인쇄"를 켜 주세요.');const win=window.open('','_blank','noopener,noreferrer');if(!win){alert('팝업이 차단되었습니다. 브라우저 팝업 허용 후 다시 인쇄해 주세요.');return}const pages=printPages.join('\n');const html=`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GFIELD E-BOOK PRINT</title>${sourceHeadMarkup}<style>@page{size:A4;margin:0}html,body{margin:0;background:white;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif}.print-notice{position:fixed;left:12px;right:12px;top:12px;z-index:99999;padding:10px 12px;border:1px solid #d9dee8;border-radius:12px;background:#fff;color:#111827;font-size:13px;line-height:1.6;box-shadow:0 8px 24px rgba(15,23,42,.12)}.page{margin:0 auto!important;box-shadow:none!important;page-break-after:always!important;break-after:page!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.student-watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:42px;font-weight:1000;letter-spacing:.04em;color:rgba(22,65,124,.10);white-space:nowrap;user-select:none;pointer-events:none;z-index:9999}@media print{html,body{background:white}.print-notice{display:none!important}.page{box-shadow:none!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}</style></head><body><div class="print-notice"><b>인쇄 안내</b><br>교재 본문만 인쇄됩니다. 표지 색상과 배경이 빠지면 인쇄 설정에서 <b>배경 그래픽 인쇄</b>를 켜 주세요.</div><div class="student-watermark">${watermarkText}</div>${pages}<script>window.addEventListener('load',()=>setTimeout(()=>{window.focus();window.print();},350));<\/script></body></html>`;win.document.open();win.document.write(html);win.document.close()}
 viewerAiBtn.addEventListener('click',()=>{try{if(window.parent&&typeof window.parent.openAiModal==='function'){window.parent.openAiModal();return}}catch(e){}alert('AI-DOC 질문 기능은 메인 화면에서 함께 연결됩니다.')});
 viewerPrintBtn.addEventListener('click',()=>{if(isPdfSource){printPdfSource();return}printHtmlPages()});
@@ -69,4 +127,3 @@ if(isPdfSource){switchToPdfMode()}else{loaderFrame.addEventListener('load',()=>{
 </script>
 </body>
 </html>
-<-bash: gfield7265@gfield-hq-vm:~/gfield-hq$: No such file or ebook_practice_patch test Sat Jun  6 14:40:16 UTC 2026 -->
