@@ -1,0 +1,134 @@
+{
+  "pilotName": "GFIELD-ON Archive 마케팅/시연용 파일럿",
+  "purpose": "Archive에서 선택한 교재 뷰어 오른쪽에 표시할 연결 링크를 기존 자산에서 가져오기 위한 1차 소스 매핑",
+  "importantScopeNote": "이 파일은 본서비스 데이터베이스가 아니라 파일럿용 연결 링크 소스 맵이다. 유튜브/뉴스/인사이트는 새로 수집하지 않고 기존 큐레이터/허브/게시판 자산에서 우선 가져온다.",
+  "selectedBook": {
+    "bookId": "hs-thinking-basic",
+    "title": "HS THINKING BASIC",
+    "viewer": "books/hs-thinking-basic/viewer-v2.html",
+    "sourceHtml": "books/hs-thinking-basic/thinking-basic.html"
+  },
+  "sourcePriority": [
+    {
+      "id": "hub",
+      "label": "허브",
+      "role": "Archive 입구/상담용 안내/교재 선택 흐름",
+      "repository": "docssam1/GFIELD-EBOOK",
+      "expectedFiles": [
+        "hub.html",
+        "gfield-on-archive-preview.html"
+      ],
+      "useFor": [
+        "서재로 돌아가기",
+        "선택 교재 소개",
+        "상담/시연 문구"
+      ]
+    },
+    {
+      "id": "news_curator",
+      "label": "뉴스 큐레이터",
+      "role": "교육 뉴스/대치동 교육 정보/학부모용 짧은 글감",
+      "repository": "docssam1/doossam-education-briefing",
+      "expectedFiles": [
+        "news_curator.html",
+        "edu_news.html",
+        "index.html"
+      ],
+      "useFor": [
+        "대치동 교육 뉴스",
+        "DOCSSAM INSIGHT",
+        "교육 정보 링크"
+      ]
+    },
+    {
+      "id": "github_board",
+      "label": "GitHub 게시판",
+      "role": "원장님이 만든 공개 게시판/브리핑/아카이브 보드",
+      "repositories": [
+        "docssam1/doossam-education-briefing",
+        "docssam1/gfield-archive"
+      ],
+      "useFor": [
+        "교육 정보 게시글 링크",
+        "브리핑 페이지 링크",
+        "마케팅/상담용 자료 링크"
+      ]
+    }
+  ],
+  "rightPanelGroups": [
+    {
+      "id": "book_connected_links",
+      "title": "이 교재와 연결된 링크",
+      "description": "현재 선택된 교재에 붙는 연결 링크. 썸네일/임베드 영상이 아니라 텍스트 링크 우선.",
+      "items": [
+        {
+          "title": "문제푸는 방법 찾기 관련 영상/자료",
+          "description": "뉴스 큐레이터 또는 게시판에서 가져올 교재 보조 링크",
+          "source": "news_curator 또는 github_board",
+          "url": "https://youtu.be/20OIED2hezI?si=nooj_2XXt9oRVDcs",
+          "displayType": "text-link"
+        },
+        {
+          "title": "풀이 방법을 고르는 힘",
+          "description": "학부모에게 보여줄 수 있는 교육 정보형 연결 링크",
+          "source": "news_curator 또는 github_board",
+          "url": "https://youtu.be/HtSd564pCpw?si=15Inv0cVtonKn_ww",
+          "displayType": "text-link"
+        },
+        {
+          "title": "규칙 찾아 해결하기 학습 흐름",
+          "description": "선택 교재와 연결된 교육 정보 예시",
+          "source": "news_curator 또는 github_board",
+          "url": "https://youtu.be/8Wz-g95UGVg?si=z-12_yWB0TYpaAFP",
+          "displayType": "text-link"
+        }
+      ]
+    },
+    {
+      "id": "docssam_insight",
+      "title": "DOCSSAM INSIGHT",
+      "description": "뉴스 큐레이터/게시판에서 가져올 짧은 학부모용 인사이트 영역",
+      "items": [
+        {
+          "title": "교재는 단순 파일이 아니라 학습 흐름입니다.",
+          "description": "지필드 Archive는 교재와 연결 링크, 질문, 자료가 함께 있는 학습 서재로 확장될 수 있습니다.",
+          "source": "hub 또는 news_curator",
+          "displayType": "text"
+        }
+      ]
+    },
+    {
+      "id": "archive_tools",
+      "title": "이 교재 도구",
+      "description": "현재 교재에 붙는 도구 버튼. 아직 실제 DB/API가 아니라 파일럿 placeholder.",
+      "items": [
+        {
+          "title": "이 교재로 AI-DOC 질문",
+          "action": "ask_current_book",
+          "displayType": "button"
+        },
+        {
+          "title": "이 교재 추가 자료",
+          "action": "open_materials_for_current_book",
+          "displayType": "button-placeholder"
+        },
+        {
+          "title": "이 교재 답안 자료",
+          "action": "open_answers_for_current_book",
+          "displayType": "button-placeholder"
+        }
+      ]
+    }
+  ],
+  "implementationRule": {
+    "step1": "viewer-v2.html에는 이 파일의 rightPanelGroups 구조를 기준으로 오른쪽 패널을 구성한다.",
+    "step2": "정확한 hub/news_curator/게시판 파일 경로가 확인되면 sourcePriority.expectedFiles를 실제 경로로 보정한다.",
+    "step3": "자동 수집/크롤링은 후순위다. 파일럿 1차는 기존 자산에서 고른 링크를 수동 매핑한다.",
+    "doNot": [
+      "썸네일 카드로 만들지 말 것",
+      "교재 강의 9개 버튼처럼 보이게 하지 말 것",
+      "로그인 직후 메인 페이징 화면처럼 만들지 말 것",
+      "GFIELD-ON 전체 본서비스로 확대하지 말 것"
+    ]
+  }
+}
