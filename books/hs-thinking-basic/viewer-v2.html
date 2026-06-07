@@ -12,52 +12,52 @@
 <body>
 <div class="app">
   <header class="topbar">
-    <div class="brand"><b>GFIELD Archive Pilot</b><span>HS THINKING BASIC 한 권 · 교육 정보 패널</span></div>
+    <div class="brand"><b>GFIELD Archive Pilot</b><span>선택 교재 · 연결 링크 뷰어</span></div>
     <div class="student"><div><small>STUDENT</small><strong id="studentName">노관호</strong></div></div>
     <div class="actions">
       <button class="btn primary" type="button" id="startBtn">교재 보기</button>
       <button class="btn" type="button" id="askBtn">AI-DOC 질문</button>
       <button class="btn" type="button" id="bookOnlyBtn">책만 보기</button>
-      <a class="btn desktop-only" href="../../gfield-on-archive-preview.html">나가기</a>
+      <a class="btn desktop-only" href="../../gfield-on-archive-preview.html">서재로</a>
     </div>
   </header>
   <main class="workspace">
     <section class="book-area">
       <iframe id="bookFrame" class="book-frame" title="HS THINKING BASIC 교재" src="./thinking-basic.html"></iframe>
-      <div class="dock" id="pageDock">HS THINKING BASIC 한 권 · Archive 파일럿</div>
+      <div class="dock" id="pageDock">선택 교재: HS THINKING BASIC · Archive 파일럿</div>
       <div class="loading" id="loading"><div><div class="spinner"></div>교재를 불러오는 중입니다.</div></div>
     </section>
     <aside class="right-panel">
       <section class="card">
-        <span class="kicker">ARCHIVE PILOT</span>
-        <h2>HS THINKING BASIC<br>한 권 보기</h2>
-        <p>이 화면은 로그인 직후 메인 페이지가 아니라, 오픈 전 광고/상담/시연을 위한 Archive 파일럿 뷰어입니다. 핵심은 교재 한 권이 안정적으로 열리는 모습을 보여주는 것입니다.</p>
+        <span class="kicker">SELECTED BOOK</span>
+        <h2>HS THINKING BASIC</h2>
+        <p>Archive에는 여러 교재가 들어갈 수 있고, 지금 화면은 그중 선택된 교재 하나를 여는 뷰어입니다. 오른쪽 링크들은 전체 공통 메뉴가 아니라 현재 교재와 연결된 링크입니다.</p>
       </section>
       <section class="card">
-        <span class="kicker">EDUCATION INFO</span>
-        <h2>추천 교육 정보</h2>
-        <p>유튜브는 교재 강의 썸네일이 아니라, 학부모에게 보여줄 수 있는 교육 정보 링크로 가볍게 배치합니다.</p>
+        <span class="kicker">CONNECTED LINKS</span>
+        <h2>이 교재와 연결된 링크</h2>
+        <p>유튜브는 썸네일 카드가 아니라, 현재 교재와 연결된 교육 정보/강의/안내 링크로 가볍게 붙입니다.</p>
         <div class="info-list">
-          <a class="info-item" href="https://youtu.be/20OIED2hezI?si=nooj_2XXt9oRVDcs" target="_blank" rel="noopener"><strong>문제푸는 방법 찾기(1) 개념 안내</strong><span>교재와 연결될 수 있는 교육 정보 예시</span></a>
-          <a class="info-item" href="https://youtu.be/HtSd564pCpw?si=15Inv0cVtonKn_ww" target="_blank" rel="noopener"><strong>문제푸는 방법 찾기(2) 학습 포인트</strong><span>풀이 방법을 고르는 힘에 대한 안내</span></a>
-          <a class="info-item" href="https://youtu.be/8Wz-g95UGVg?si=z-12_yWB0TYpaAFP" target="_blank" rel="noopener"><strong>규칙 찾아 해결하기 학습 흐름</strong><span>패턴을 읽고 설명하는 훈련 예시</span></a>
+          <a class="info-item" href="https://youtu.be/20OIED2hezI?si=nooj_2XXt9oRVDcs" target="_blank" rel="noopener"><strong>문제푸는 방법 찾기(1) 관련 영상</strong><span>HS THINKING BASIC 안의 관련 학습 링크</span></a>
+          <a class="info-item" href="https://youtu.be/HtSd564pCpw?si=15Inv0cVtonKn_ww" target="_blank" rel="noopener"><strong>문제푸는 방법 찾기(2) 관련 영상</strong><span>이 교재를 보충하는 연결 링크</span></a>
+          <a class="info-item" href="https://youtu.be/8Wz-g95UGVg?si=z-12_yWB0TYpaAFP" target="_blank" rel="noopener"><strong>규칙 찾아 해결하기 관련 영상</strong><span>선택 교재와 연결된 교육 정보</span></a>
         </div>
       </section>
       <section class="card">
         <span class="kicker">DOCSSAM INSIGHT</span>
-        <h2>교재는 단순 파일이 아니라<br>학습 흐름입니다.</h2>
-        <p>지필드 Archive는 교재를 온라인에 올려두는 것에서 출발하지만, 이후에는 교육 정보, 질문, 자료, 리포트로 확장될 수 있습니다.</p>
+        <h2>교재와 링크가 함께 있는<br>Archive형 서재</h2>
+        <p>책은 여러 권이 될 수 있고, 각 책마다 연결 영상, 교육 정보, 질문, 자료, 답안이 붙을 수 있습니다. 이 화면은 그 구조를 빠르게 보여주는 시연용 파일럿입니다.</p>
       </section>
       <section class="card">
-        <span class="kicker">PILOT TOOLS</span>
+        <span class="kicker">BOOK TOOLS</span>
         <div class="tool-grid">
-          <button class="gold" type="button" id="sideAskBtn">AI-DOC 질문 예시</button>
-          <button type="button" id="materialBtn">추가 자료 준비 중</button>
-          <button type="button" id="answerBtn">답안 자료 준비 중</button>
+          <button class="gold" type="button" id="sideAskBtn">이 교재로 AI-DOC 질문</button>
+          <button type="button" id="materialBtn">이 교재 추가 자료</button>
+          <button type="button" id="answerBtn">이 교재 답안 자료</button>
         </div>
       </section>
       <section class="card">
-        <p class="note"><span class="badge">DEMO</span><br><br>완성형 본서비스가 아니라, GFIELD-ON Archive가 어떤 모습으로 학부모에게 보일 수 있는지 확인하는 빠른 시연용 화면입니다.</p>
+        <p class="note"><span class="badge">DEMO</span><br><br>완성형 본서비스가 아니라, 여러 교재가 있는 Archive에서 선택한 교재가 열리고 그 교재의 연결 링크가 함께 보이는 흐름을 검증하는 마케팅/시연용 파일럿입니다.</p>
       </section>
     </aside>
   </main>
@@ -68,7 +68,7 @@ const loading=document.getElementById('loading');
 const pageDock=document.getElementById('pageDock');
 function askCurrent(){
   const student=document.getElementById('studentName').textContent;
-  alert(`${student} 학생 질문 예시\n\nHS THINKING BASIC 교재에서 막힌 쪽과 문제 번호를 먼저 확인한 뒤, 정답부터 말하지 않고 풀이 흐름을 도와줍니다.`);
+  alert(`${student} 학생 질문 예시\n\n선택 교재: HS THINKING BASIC\n이 교재에서 막힌 쪽과 문제 번호를 먼저 확인한 뒤, 정답부터 말하지 않고 풀이 흐름을 도와줍니다.`);
 }
 (function init(){
   const params=new URLSearchParams(location.search);
@@ -77,17 +77,17 @@ function askCurrent(){
   try{sessionStorage.setItem('gfield_student_name',student)}catch(error){}
   frame.addEventListener('load',()=>{
     loading.hidden=true;
-    pageDock.textContent='HS THINKING BASIC 한 권 · 준비 완료';
+    pageDock.textContent='선택 교재: HS THINKING BASIC · 준비 완료';
   });
   document.getElementById('startBtn').addEventListener('click',()=>{
     try{frame.contentWindow.scrollTo({top:0,behavior:'smooth'});}catch(error){}
-    pageDock.textContent='HS THINKING BASIC 한 권 · 표지로 이동';
+    pageDock.textContent='선택 교재: HS THINKING BASIC · 표지로 이동';
   });
   document.getElementById('bookOnlyBtn').addEventListener('click',()=>document.body.classList.toggle('book-only'));
   document.getElementById('askBtn').addEventListener('click',askCurrent);
   document.getElementById('sideAskBtn').addEventListener('click',askCurrent);
-  document.getElementById('materialBtn').addEventListener('click',()=>alert('추가 자료는 다음 단계에서 연결합니다.'));
-  document.getElementById('answerBtn').addEventListener('click',()=>alert('답안 자료는 다음 단계에서 연결합니다.'));
+  document.getElementById('materialBtn').addEventListener('click',()=>alert('이 교재의 추가 자료는 다음 단계에서 연결합니다.'));
+  document.getElementById('answerBtn').addEventListener('click',()=>alert('이 교재의 답안 자료는 다음 단계에서 연결합니다.'));
 })();
 </script>
 </body>
