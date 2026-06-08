@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GFIELD-ON Archiv 파일럿 | 지필드 비밀 서재</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+:root{
+  --bg:#02050b;
+  --panel:#07111f;
+  --panel2:#0d1726;
+  --gold:#d4af37;
+  --gold2:#f8dd83;
+  --line:rgba(255,255,255,.12);
+  --muted:#cbd5e1;
+  --white:#fff;
+  --blue:#60a5fa;
+  --green:#34d399;
+  --red:#fca5a5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:#fff;font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;scroll-behavior:smooth;word-break:keep-all}
+a{color:inherit;text-decoration:none}button,input{font-family:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:0 auto}.gold{color:var(--gold2)}
+
+/* intro */
+.hero{min-height:100vh;position:relative;overflow:hidden;background:
+ radial-gradient(circle at 15% 12%,rgba(96,165,250,.28),transparent 33%),
+ radial-gradient(circle at 84% 12%,rgba(212,175,55,.20),transparent 30%),
+ radial-gradient(circle at 50% 88%,rgba(16,185,129,.12),transparent 34%),
+ linear-gradient(135deg,#02050b,#07111f 58%,#02050b);}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.032) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.032) 1px,transparent 1px);background-size:38px 38px;mask-image:radial-gradient(circle at center,#000,transparent 82%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(2,5,11,.05),rgba(2,5,11,.55) 62%,rgba(2,5,11,.96));pointer-events:none}.topbar{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:24px 0}.brand{font-size:18px;font-weight:1000;letter-spacing:.16em;color:#f8dd83}.badge{border:1px solid rgba(248,221,131,.28);background:rgba(248,221,131,.08);color:#f8dd83;padding:10px 14px;border-radius:999px;font-size:12px;font-weight:1000;letter-spacing:.12em}.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:28px;align-items:center;min-height:calc(100vh - 86px);padding:42px 0 70px}.hero-copy h1{margin:0;font-size:clamp(44px,7vw,96px);line-height:.92;letter-spacing:-.085em;font-weight:1000;text-shadow:0 18px 58px rgba(0,0,0,.48)}.hero-copy .soon{display:block;color:#f8dd83}.hero-copy p{max-width:760px;color:#dce4ee;font-size:clamp(17px,2vw,24px);line-height:1.65;font-weight:800}.history-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.history-pills span{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);border-radius:999px;padding:10px 13px;color:#e5e7eb;font-size:12px;font-weight:1000}.access-card{border:1px solid rgba(255,255,255,.16);background:rgba(15,23,42,.72);backdrop-filter:blur(20px);border-radius:32px;padding:26px;box-shadow:0 32px 90px rgba(0,0,0,.45)}.access-card h2{margin:0;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.07em}.access-card p{color:#cbd5e1;line-height:1.7;font-weight:700}.access-card label{display:block;margin:16px 0 9px;font-size:13px;color:#e5e7eb;font-weight:1000}.access-card input{width:100%;height:58px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.34);color:#fff;border-radius:16px;text-align:center;font-size:20px;font-weight:900;outline:none}.access-card input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.15)}.access-card button,.main-btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#02050b;font-weight:1000;padding:0 22px;cursor:pointer;box-shadow:0 18px 44px rgba(212,175,55,.18)}.access-card button{width:100%;margin-top:18px}.err{min-height:22px;margin-top:10px;color:var(--red);font-size:13px}.helper{font-size:12px;color:#cbd5e1;margin-top:10px;line-height:1.6}.quick-enter{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.quick-enter button{width:auto;min-height:36px;border-radius:999px;padding:0 13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);box-shadow:none;color:#f8dd83;font-size:12px}
+
+/* shared */
+.section{padding:90px 0;border-top:1px solid rgba(255,255,255,.08);background:#02050b}.section.alt{background:linear-gradient(180deg,#02050b,#06101d)}.section-head{display:flex;justify-content:space-between;gap:22px;align-items:flex-end;margin-bottom:32px}.kicker{color:#f8dd83;font-size:12px;font-weight:1000;letter-spacing:.26em;margin-bottom:12px}.section h2{font-size:clamp(34px,5vw,66px);line-height:1.04;letter-spacing:-.075em;margin:0;font-weight:1000;text-wrap:balance}.section p{color:#cbd5e1;line-height:1.78;font-weight:700}.lead{font-size:clamp(18px,2vw,24px);color:#f8fafc!important}.subcopy{max-width:760px}
+
+/* story */
+.story-grid{display:grid;grid-template-columns:1fr minmax(320px,.86fr);gap:34px;align-items:center}.record-wall{min-height:430px;border:1px solid rgba(212,175,55,.23);border-radius:34px;padding:24px;background:radial-gradient(circle at 50% 18%,rgba(212,175,55,.22),transparent 38%),linear-gradient(135deg,#08111f,#0f1d2c);box-shadow:0 30px 80px rgba(0,0,0,.32);display:grid;gap:12px;align-content:center}.record-card{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);border-radius:22px;padding:18px;transition:.25s}.record-card:hover,.record-card.on{border-color:rgba(248,221,131,.5);background:rgba(212,175,55,.12);transform:translateX(-8px)}.record-card b{display:block;color:#f8dd83;font-size:22px;letter-spacing:-.05em}.record-card span{display:block;color:#e5e7eb;margin-top:6px}
+
+/* platform */
+.platform-stage{position:relative;display:grid;grid-template-columns:230px 1fr;gap:18px;border:1px solid rgba(255,255,255,.12);border-radius:34px;background:linear-gradient(135deg,rgba(15,23,42,.76),rgba(3,7,18,.96));padding:20px;box-shadow:0 30px 80px rgba(0,0,0,.32)}.platform-sidebar{border:1px solid rgba(255,255,255,.08);border-radius:26px;background:rgba(0,0,0,.24);padding:18px;display:grid;gap:10px;align-content:start}.brand-chip{color:#f8dd83;font-size:24px;font-weight:1000;line-height:1}.brand-chip small{font-size:12px;color:#cbd5e1;letter-spacing:.18em;text-transform:uppercase}.side-item{padding:13px 14px;border-radius:16px;color:#cbd5e1;font-weight:900}.side-item.on{background:rgba(212,175,55,.15);color:#f8dd83;border:1px solid rgba(212,175,55,.28)}.platform-main{display:grid;gap:16px}.platform-hero-card{min-height:292px;border-radius:26px;background:radial-gradient(circle at 16% 14%,rgba(212,175,55,.26),transparent 24%),linear-gradient(135deg,#0c1f32,#102833);border:1px solid rgba(212,175,55,.18);padding:28px;display:grid;grid-template-columns:190px 1fr;gap:24px;align-items:center;overflow:hidden}.platform-hero-card span{color:#f8dd83;font-size:12px;font-weight:1000;letter-spacing:.18em}.platform-hero-card h3{margin:8px 0 0;font-size:clamp(32px,4vw,48px);line-height:1.05;letter-spacing:-.065em}.book-mock{width:160px;height:220px;border-radius:18px;background:linear-gradient(145deg,#16417c,#0f766e 70%,#102033);border:1px solid rgba(248,221,131,.5);box-shadow:18px 20px 44px rgba(0,0,0,.38);transform:rotate(-8deg);position:relative}.book-mock:before{content:'GFIELD';position:absolute;left:22px;top:28px;color:#f8dd83;font-size:28px;font-weight:1000}.book-mock:after{content:'SMART EBOOK';position:absolute;left:22px;bottom:28px;color:#e5e7eb;font-size:12px;font-weight:900;letter-spacing:.18em}.platform-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.mini-card{min-height:116px;border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:18px;background:rgba(255,255,255,.055)}.mini-card b{display:block;font-size:28px;color:#fff}.mini-card span{display:block;margin-top:8px;color:#cbd5e1;font-size:13px;font-weight:800}.mini-card.math{background:rgba(212,175,55,.1)}.mini-card.english{background:rgba(59,130,246,.12)}.mini-card.science{background:rgba(34,197,94,.1)}.ai-dot-bubble{position:absolute;right:28px;bottom:24px;display:flex;align-items:center;gap:10px;border:1px solid rgba(248,221,131,.24);background:rgba(2,5,11,.74);backdrop-filter:blur(12px);border-radius:999px;padding:10px 14px;box-shadow:0 18px 38px rgba(0,0,0,.3)}.ai-dot{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#f8dd83;color:#02050b;font-weight:1000}.ai-dot-bubble p{margin:0;color:#f8fafc;font-size:12px;line-height:1.35}
+
+/* info */
+.info-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.info-card{min-height:218px;border:1px solid rgba(255,255,255,.1);border-radius:28px;padding:24px;background:rgba(255,255,255,.055);transition:.25s;position:relative;overflow:hidden}.info-card:before{content:"";position:absolute;inset:auto -30% -40% auto;width:210px;height:210px;border-radius:50%;background:rgba(212,175,55,.10)}.info-card:hover{transform:translateY(-5px);border-color:rgba(248,221,131,.35);background:rgba(212,175,55,.08)}.info-card span{font-size:11px;color:#f8dd83;font-weight:1000;letter-spacing:.18em}.info-card h3{margin:16px 0 0;font-size:26px;line-height:1.18;letter-spacing:-.05em}.info-card p{font-size:15px}.info-card.youtube:before{background:rgba(248,113,113,.15)}.info-card.news:before{background:rgba(96,165,250,.15)}.info-card.insight:before{background:rgba(212,175,55,.14)}
+
+/* ebook */
+.ebook-box{border:1px solid rgba(212,175,55,.22);border-radius:34px;padding:34px;background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(15,23,42,.82));display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}.ebook-box p{max-width:800px}.book-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.book-card{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.055);border-radius:24px;padding:20px;display:flex;gap:16px;align-items:center}.book-thumb{width:72px;height:96px;border-radius:10px;background:linear-gradient(145deg,#0f766e,#1e3a8a);border:1px solid rgba(248,221,131,.38);box-shadow:8px 10px 22px rgba(0,0,0,.3)}.book-card b{display:block}.book-card span{display:block;margin-top:6px;color:#cbd5e1;font-size:12px;font-weight:800}
+
+/* footer */
+.footer{padding:54px 0;border-top:1px solid rgba(255,255,255,.08);background:#01030a;color:#94a3b8}.footer .wrap{display:flex;justify-content:space-between;gap:18px;align-items:center}.footer b{color:#f8dd83}
+
+/* hidden platform reveal */
+#platformHome{display:block}.access-note{margin-top:16px;padding:14px;border:1px solid rgba(248,221,131,.25);background:rgba(248,221,131,.07);border-radius:18px;color:#f8fafc;font-size:13px;line-height:1.6}
+
+@media(max-width:900px){.hero-grid,.story-grid,.platform-stage,.platform-hero-card,.ebook-box{grid-template-columns:1fr}.topbar{align-items:flex-start;gap:10px;flex-direction:column}.platform-sidebar{grid-template-columns:repeat(2,1fr)}.platform-mini-grid,.info-card-grid,.book-row{grid-template-columns:1fr}.section-head{display:block}.main-btn{margin-top:18px}.ai-dot-bubble{position:static;margin-top:14px;border-radius:18px}.footer .wrap{display:block}.access-card{padding:22px}.hero-copy h1{font-size:48px}.book-mock{margin:auto}.hero-grid{padding-top:24px}}
+</style>
+</head>
+<body>
+<header class="hero" id="top">
+  <div class="wrap topbar">
+    <div class="brand">GFIELD-ON Archiv</div>
+    <div class="badge">승인 학생 전용 · 파일럿</div>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="kicker">SECRET LEARNING ARCHIV</div>
+      <h1><span class="soon">비밀 서재가</span>열립니다.</h1>
+      <p>어느 누구보다 앞서 준비해 온 지필드의 학습 기록. 14년 전 전자펜 첨삭과 맞춤 영상에서 시작된 고민이, 승인된 학생만을 위한 GFIELD-ON Archiv 파일럿으로 이어집니다.</p>
+      <div class="history-pills">
+        <span>전자펜 첨삭</span><span>맞춤 영상</span><span>교재 기록</span><span>성공하는 공부 습관</span>
+      </div>
+    </div>
+    <form class="access-card" id="accessForm">
+      <div class="kicker">ARCHIV ACCESS</div>
+      <h2>승인된 학생만을 위한<br><span class="gold">시크릿 학습 공간</span></h2>
+      <p>파일럿에서는 이름과 승인번호 입력 후 플랫폼 홈을 확인할 수 있습니다.</p>
+      <label for="studentName">학생 이름</label>
+      <input id="studentName" value="노관호" autocomplete="off" />
+      <label for="accessCode">승인번호</label>
+      <input id="accessCode" value="GFIELD2026" autocomplete="off" />
+      <button type="submit">승인 학생 입장하기</button>
+      <div class="quick-enter"><button type="button" id="demoEnter">파일럿 바로 보기</button></div>
+      <div class="err" id="err"></div>
+      <div class="helper">정식 권한 시스템이 아니라, GFIELD-ON Archiv 파일럿 흐름 확인용입니다.</div>
+    </form>
+  </div>
+</header>
+
+<section class="section" id="story">
+  <div class="wrap story-grid">
+    <div>
+      <div class="kicker">GFIELD HISTORY</div>
+      <h2>기술이 아니라,<br><span class="gold">어떻게 가르칠까</span>를 고민했습니다.</h2>
+      <p class="lead">지필드가 오래전부터 쌓아온 것은 단순한 자료가 아닙니다. 아이가 직접 풀고, 선생님이 한 문제 한 문제 확인하고, 이해가 부족한 부분을 다시 설명해 온 시간입니다.</p>
+      <p>GFIELD-ON Archiv 파일럿은 그 기록을 승인된 학생에게 조용히 열어주는 시크릿 학습 서재입니다.</p>
+    </div>
+    <div class="record-wall">
+      <div class="record-card on"><b>14년 전</b><span>전자펜으로 직접 푼 풀이가 저장되던 시도</span></div>
+      <div class="record-card"><b>맞춤 영상</b><span>한 명의 학생을 위한 다시 설명</span></div>
+      <div class="record-card"><b>교재와 기록</b><span>수업·복습·질문이 이어지는 구조</span></div>
+      <div class="record-card"><b>GFIELD-ON Archiv</b><span>승인된 학생만의 시크릿 서재</span></div>
+    </div>
+  </div>
+</section>
+
+<main id="platformHome">
+<section class="section alt" id="platform">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker">AFTER ACCESS</div>
+        <h2>로그인 이후 열리는<br>플랫폼 홈</h2>
+        <p class="subcopy">Smart eBook, 자료실, 교육정보, 리포트가 한 화면에서 정리됩니다. 실제 학습은 선택한 책의 viewer-v2로 이어집니다.</p>
+      </div>
+      <a class="main-btn" href="gfield-on-archive-ebook-library.html">Smart eBook 입장</a>
+    </div>
+    <div class="platform-stage">
+      <aside class="platform-sidebar">
+        <div class="brand-chip">GFIELD-ON<br><small>Archiv</small></div>
+        <div class="side-item on">Smart eBook</div>
+        <div class="side-item">자료실</div>
+        <div class="side-item">교육정보</div>
+        <div class="side-item">학습 리포트</div>
+        <div class="side-item">공지</div>
+      </aside>
+      <div class="platform-main">
+        <div class="platform-hero-card">
+          <div class="book-mock"></div>
+          <div>
+            <span>SMART EBOOK</span>
+            <h3>영상이 연결된 책 서재</h3>
+            <p>Smart eBook에 들어가면 책만 보입니다. 책을 선택하면 3D 설명 화면을 거쳐 영상+교재 뷰어로 이동합니다.</p>
+            <p class="access-note">파일럿에서는 모든 샘플 책이 보이는 것으로 처리합니다. 실제 권한 DB는 만들지 않습니다.</p>
+          </div>
+        </div>
+        <div class="platform-mini-grid">
+          <div class="mini-card math"><b>수학</b><span>황소·필즈·소마 대비</span></div>
+          <div class="mini-card english"><b>영어</b><span>읽기·어휘·로드맵</span></div>
+          <div class="mini-card science"><b>과학</b><span>탐구·개념 자료</span></div>
+        </div>
+      </div>
+      <div class="ai-dot-bubble"><div class="ai-dot">AI</div><p>막히면 쪽수와 문제 번호부터 확인할게요.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="education-info">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker">CURATED INFORMATION</div>
+        <h2>상담 화면에 보여줄<br>교육 정보</h2>
+        <p class="subcopy">뉴스 큐레이터·유튜브·인사이트는 홈에서 보여주고, 실제 학습은 뷰어로 이어집니다.</p>
+      </div>
+    </div>
+    <div class="info-card-grid">
+      <article class="info-card youtube"><span>YOUTUBE</span><h3>문제푸는 방법 찾기 학습 흐름</h3><p>교재와 연결될 수 있는 대표 교육 영상 링크입니다.</p></article>
+      <article class="info-card insight"><span>INSIGHT</span><h3>DOCSSAM INSIGHT</h3><p>교재는 파일이 아니라, 영상·질문·자료로 이어지는 학습 흐름입니다.</p></article>
+      <article class="info-card news"><span>NEWS</span><h3>대치동 교육 정보</h3><p>상담 시 학부모에게 보여줄 수 있는 교육 브리핑 카드 영역입니다.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="smart-ebook">
+  <div class="wrap">
+    <div class="ebook-box">
+      <div>
+        <div class="kicker">SMART EBOOK LIBRARY</div>
+        <h2>책만 모아둔<br>시크릿 이북 서재</h2>
+        <p>Smart eBook 안에는 책만 들어갑니다. 뉴스, 상담 CTA, AI-DOC 큰 소개, GitHub 게시판은 넣지 않습니다. 책을 선택하면 3D 책 설명 화면을 거쳐 이북 강의 보기로 이동합니다.</p>
+      </div>
+      <a class="main-btn" href="gfield-on-archive-ebook-library.html">서재 열기</a>
+    </div>
+    <div class="book-row">
+      <div class="book-card"><div class="book-thumb"></div><div><b>HS THINKING BASIC</b><span>영상 연결 · viewer-v2 준비</span></div></div>
+      <div class="book-card"><div class="book-thumb" style="background:linear-gradient(145deg,#7c2d12,#1e293b)"></div><div><b>황소 대비 교재</b><span>파일럿 카드 · 준비중</span></div></div>
+      <div class="book-card"><div class="book-thumb" style="background:linear-gradient(145deg,#334155,#14532d)"></div><div><b>영어·과학 확장</b><span>차후 영역 표시</span></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap"><div><b>GFIELD-ON Archiv 파일럿</b><br>승인된 학생만을 위한 시크릿 학습 서재</div><div>© G-FIELD Gifted Education</div></div>
+</footer>
+
+<script>
+const accessForm=document.getElementById('accessForm');
+const err=document.getElementById('err');
+const platform=document.getElementById('platform');
+function enterArchiv(){
+  const name=(document.getElementById('studentName').value||'').trim();
+  const code=(document.getElementById('accessCode').value||'').trim();
+  if(!name){err.textContent='학생 이름을 입력해 주세요.';return}
+  if(!code){err.textContent='승인번호를 입력해 주세요.';return}
+  err.textContent='';
+  platform.scrollIntoView({behavior:'smooth',block:'start'});
+}
+accessForm.addEventListener('submit',e=>{e.preventDefault();enterArchiv()});
+document.getElementById('demoEnter').addEventListener('click',enterArchiv);
+</script>
+</body>
+</html>
