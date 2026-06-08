@@ -6,107 +6,104 @@
 <title>GFIELD Smart eBook · 서재</title>
 <style>
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
-:root{--gold:#e9c176;--gold2:#f5d98b;--gold-dim:#c5a059;--bg:#0f141a;--surface-low:#171c22;--surface-high:#252a31;--surface-lowest:#0a0f14;--text:#dee3eb;--text-dim:#d1c5b4;--border:rgba(78,70,57,.5);}
+:root{--gold:#d4af37;--gold2:#f8dd83;--border:rgba(212,175,55,.16);}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100%;font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-.lib-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(10,15,20,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.lib-logo{display:flex;align-items:center;gap:12px}
-.lib-logo-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#c5a059,#e9c176);display:grid;place-items:center;font-size:13px;font-weight:1000;color:#0a0f14;flex-shrink:0}
-.lib-logo-text p{font-size:9px;font-weight:1000;letter-spacing:.28em;color:var(--gold);margin:0}
-.lib-logo-text h1{font-size:18px;font-weight:1000;letter-spacing:-.03em;margin:2px 0 0;color:#fff}
+html,body{min-height:100%;font-family:'Pretendard',-apple-system,sans-serif;background:#02050b;color:#f8fafc;overflow-x:hidden}
+.lib-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 24px;background:rgba(2,5,11,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.lib-logo{display:flex;align-items:center;gap:11px}
+.lib-logo-mark{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#d4af37,#f8dd83);display:grid;place-items:center;font-size:12px;font-weight:1000;color:#02050b;flex-shrink:0}
+.lib-logo-text p{font-size:9.5px;font-weight:1000;letter-spacing:.26em;color:var(--gold);margin:0}
+.lib-logo-text h1{font-size:17px;font-weight:1000;letter-spacing:-.04em;margin:2px 0 0;color:#fff}
 .lib-right{display:flex;align-items:center;gap:10px}
-.student-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(233,193,118,.1);border:1px solid rgba(233,193,118,.24);color:var(--gold2);font-size:12px;font-weight:900}
-.back-btn{border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--text-dim);font-size:12.5px;font-weight:900;padding:7px 14px;cursor:pointer;font-family:inherit;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center}
-.back-btn:hover{color:#fff;border-color:rgba(233,193,118,.4)}
-.lib-body{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:calc(100vh - 66px)}
-.lib-sidebar{border-right:1px solid var(--border);padding:24px 16px;background:var(--surface-lowest);position:sticky;top:66px;height:calc(100vh - 66px);overflow-y:auto}
-.sidebar-label{font-size:9px;font-weight:1000;letter-spacing:.28em;color:var(--gold);margin-bottom:10px;display:block}
-.sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:850;color:var(--text-dim);transition:all .15s;border:1px solid transparent;margin-bottom:3px;user-select:none}
-.sidebar-item:hover{background:var(--surface-low);color:var(--text)}
-.sidebar-item.active{background:rgba(233,193,118,.1);border-color:rgba(233,193,118,.28);color:var(--gold2)}
-.sidebar-divider{height:1px;background:var(--border);margin:14px 0}
-.search-wrap{position:relative;margin-bottom:18px}
-.search-wrap input{width:100%;height:38px;border:1px solid var(--border);border-radius:9px;background:rgba(0,0,0,.4);color:var(--text);font-size:13px;font-family:inherit;padding:0 12px 0 34px;outline:none;transition:border-color .15s}
-.search-wrap input::placeholder{color:#4b5563}
-.search-wrap input:focus{border-color:rgba(233,193,118,.5)}
-.search-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#4b5563;font-size:14px;pointer-events:none}
-.lib-main{padding:28px 32px 60px}
-.main-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:28px;flex-wrap:wrap}
-.main-title p{font-size:9px;font-weight:1000;letter-spacing:.28em;color:var(--gold);margin-bottom:6px}
-.main-title h2{font-size:clamp(22px,2.8vw,34px);font-weight:1000;letter-spacing:-.05em;color:#fff}
-.meta-chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;min-height:30px;padding:0 12px;border-radius:999px;background:rgba(233,193,118,.07);border:1px solid rgba(233,193,118,.18);color:var(--gold2);font-size:11px;font-weight:1000;letter-spacing:.06em}
-/* 상세 영역 */
-.detail-section{display:none;grid-template-columns:5fr 7fr;gap:0;background:linear-gradient(135deg,var(--surface-lowest),#0d1520);border-bottom:2px solid rgba(233,193,118,.22);margin-bottom:32px;border-radius:0 0 20px 20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5)}
-.detail-section.open{display:grid}
-.detail-left{padding:48px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at 40% 50%,rgba(233,193,118,.12),transparent 65%);border-right:1px solid var(--border)}
-.book-scene-large{perspective:1200px;width:100%;max-width:320px}
-.book-wrapper-large{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.8,.2,1);transform:rotateY(-10deg) rotateX(5deg);animation:bookFloat 4s ease-in-out infinite}
-@keyframes bookFloat{0%,100%{transform:rotateY(-10deg) rotateX(5deg) translateY(0)}50%{transform:rotateY(-14deg) rotateX(8deg) translateY(-12px)}}
-.book-front-large{aspect-ratio:3/4;width:100%;border-radius:4px 16px 16px 4px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px;transform:translateZ(15px);box-shadow:inset 4px 0 10px rgba(0,0,0,.5),0 30px 60px rgba(0,0,0,.7)}
-.book-wrapper-large::before{content:'';position:absolute;top:0;left:0;width:30px;height:100%;transform-origin:left;transform:rotateY(-90deg);background:linear-gradient(90deg,#111,#222 20%,#111 80%,#0a0a0a)}
-.book-wrapper-large::after{content:'';position:absolute;top:1%;right:-28px;width:28px;height:98%;transform-origin:left;transform:translateZ(-15px) rotateY(90deg);background:#d4c5b0;background-image:repeating-linear-gradient(0deg,#d4c5b0,#d4c5b0 1px,#c0b098 2px)}
-.book-shadow-large{position:absolute;bottom:-8px;left:5%;width:90%;height:24px;box-shadow:0 20px 30px rgba(0,0,0,.85);transform:translateZ(-20px)}
-.detail-right{padding:48px 40px;display:flex;flex-direction:column;gap:18px;justify-content:center}
-.detail-kicker{font-size:10px;font-weight:1000;letter-spacing:.28em;color:var(--gold-dim)}
-.detail-title-large{font-size:clamp(28px,3.5vw,42px);font-weight:1000;letter-spacing:-.06em;line-height:1.05;color:#fff;margin-top:6px}
-.detail-desc-large{font-size:14px;line-height:1.85;color:var(--text-dim);max-width:560px}
-.detail-tags{display:flex;gap:8px;flex-wrap:wrap}
-.dtag{display:inline-flex;align-items:center;min-height:30px;padding:0 12px;border-radius:999px;font-size:11px;font-weight:900}
-.dtag-gold{background:rgba(233,193,118,.1);border:1px solid rgba(233,193,118,.22);color:var(--gold2)}
-.dtag-green{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:#86efac}
-.dtag-blue{background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.18);color:#93c5fd}
-.dtag-gray{background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.16);color:#94a3b8}
-.detail-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.dmeta{padding:12px 14px;border-radius:13px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
-.dmeta b{display:block;font-size:9px;font-weight:1000;letter-spacing:.16em;color:var(--gold);margin-bottom:3px}
-.dmeta span{font-size:13.5px;font-weight:850;color:var(--text)}
-.detail-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:14px;font-size:14px;font-weight:1000;cursor:pointer;border:0;font-family:inherit;transition:all .16s;text-decoration:none;letter-spacing:-.02em;white-space:nowrap}
-.cta-primary{background:linear-gradient(135deg,#c5a059,#e9c176);color:#0a0f14;box-shadow:0 12px 32px rgba(233,193,118,.28)}
-.cta-primary:hover{filter:brightness(1.1)}
+.student-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.22);color:var(--gold2);font-size:12px;font-weight:900}
+.back-btn{border:1px solid var(--border);border-radius:10px;background:transparent;color:#94a3b8;font-size:12.5px;font-weight:900;padding:7px 13px;cursor:pointer;font-family:inherit;transition:all .14s;text-decoration:none;display:inline-flex;align-items:center}
+.back-btn:hover{color:#fff;border-color:rgba(255,255,255,.2)}
+.detail-panel{overflow:hidden;max-height:0;transition:max-height .46s cubic-bezier(.22,1,.36,1);background:linear-gradient(180deg,rgba(6,12,24,.98),rgba(3,7,16,.97));border-bottom:1px solid var(--border)}
+.detail-panel.open{max-height:420px}
+.detail-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:190px minmax(0,1fr);position:relative;padding:0}
+.detail-left{padding:28px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border);background:radial-gradient(circle at 50% 40%,rgba(212,175,55,.09),transparent 62%)}
+.detail-book-3d{perspective:900px}
+.detail-book-wrap{position:relative;transform-style:preserve-3d;animation:detailFloat 3.4s ease-in-out infinite}
+@keyframes detailFloat{0%,100%{transform:rotateY(-12deg) rotateX(4deg) translateY(0)}50%{transform:rotateY(-16deg) rotateX(6deg) translateY(-7px)}}
+.detail-book-cover{width:130px;aspect-ratio:0.68;border-radius:3px 14px 14px 3px;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 13px;box-shadow:12px 16px 44px rgba(0,0,0,.75),-3px 0 0 rgba(0,0,0,.45)}
+.detail-book-wrap::after{content:'';position:absolute;top:2%;right:-18px;width:18px;height:96%;transform-origin:left;transform:translateZ(-9px) rotateY(90deg);background:#c8bba4;background-image:repeating-linear-gradient(0deg,#c8bba4,#c8bba4 1px,#b8a894 2px)}
+.book-spine-line{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.3));border-radius:3px 0 0 3px}
+.detail-right{padding:26px 24px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:420px}
+.detail-close{position:absolute;top:14px;right:16px;width:30px;height:30px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:#94a3b8;font-size:15px;cursor:pointer;display:grid;place-items:center;transition:all .14s;z-index:5}
+.detail-close:hover{background:rgba(255,255,255,.1);color:#fff}
+.detail-kicker{font-size:10px;font-weight:1000;letter-spacing:.24em;color:var(--gold)}
+.detail-title{font-size:clamp(18px,2.2vw,24px);font-weight:1000;letter-spacing:-.05em;line-height:1.1;color:#fff}
+.detail-desc{font-size:12.5px;line-height:1.75;color:#cbd5e1;max-width:520px}
+.detail-tags{display:flex;gap:6px;flex-wrap:wrap}
+.dtag{display:inline-flex;align-items:center;min-height:27px;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:900}
+.dtag-gold{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);color:var(--gold2)}
+.dtag-green{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.18);color:#86efac}
+.dtag-blue{background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.16);color:#93c5fd}
+.dtag-gray{background:rgba(100,116,139,.08);border:1px solid rgba(100,116,139,.16);color:#94a3b8}
+.detail-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.dmeta{padding:9px 11px;border-radius:11px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
+.dmeta b{display:block;font-size:9px;font-weight:1000;letter-spacing:.14em;color:var(--gold);margin-bottom:2px}
+.dmeta span{font-size:12.5px;font-weight:850;color:#e5e7eb}
+.detail-cta{display:flex;gap:7px;flex-wrap:wrap}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:13px;font-size:13px;font-weight:1000;cursor:pointer;border:0;font-family:inherit;transition:all .15s;text-decoration:none;letter-spacing:-.02em;white-space:nowrap}
+.cta-primary{background:linear-gradient(135deg,#d4af37,#f8dd83);color:#02050b;box-shadow:0 8px 22px rgba(212,175,55,.26)}
+.cta-primary:hover{filter:brightness(1.08)}
 .cta-zoom{background:rgba(37,99,235,.16);border:1px solid rgba(37,99,235,.3);color:#93c5fd}
-.cta-zoom:hover{background:rgba(37,99,235,.28)}
+.cta-zoom:hover{background:rgba(37,99,235,.26)}
 .cta-disabled{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#4b5563;cursor:default;pointer-events:none}
-.cta-close{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text-dim)}
-.cta-close:hover{color:#fff}
-.zoom-note{font-size:12px;color:#4b5563;line-height:1.65}
+.cta-back{background:rgba(255,255,255,.05);border:1px solid var(--border);color:#94a3b8}
+.cta-back:hover{color:#fff}
+.zoom-note{font-size:11px;color:#4b5563;line-height:1.6}
 .zoom-note strong{color:#60a5fa}
-.detail-close-btn{position:absolute;top:20px;right:24px;width:34px;height:34px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--text-dim);font-size:16px;cursor:pointer;display:grid;place-items:center;transition:all .15s}
-.detail-close-btn:hover{background:rgba(255,255,255,.1);color:#fff}
-/* 책 그리드 */
-.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px}
+.lib-body{display:grid;grid-template-columns:196px minmax(0,1fr);min-height:calc(100vh - 62px)}
+.lib-sidebar{border-right:1px solid var(--border);padding:20px 13px;background:rgba(7,17,31,.4);position:sticky;top:62px;height:calc(100vh - 62px);overflow-y:auto}
+.sidebar-label{font-size:9.5px;font-weight:1000;letter-spacing:.24em;color:var(--gold);margin-bottom:9px;display:block}
+.sidebar-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:11px;cursor:pointer;font-size:13px;font-weight:850;color:#94a3b8;transition:all .13s;border:1px solid transparent;margin-bottom:3px;user-select:none}
+.sidebar-item:hover{background:rgba(255,255,255,.04);color:#e5e7eb}
+.sidebar-item.active{background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.2);color:var(--gold2)}
+.sidebar-divider{height:1px;background:var(--border);margin:13px 0}
+.search-wrap{position:relative;margin-bottom:15px}
+.search-wrap input{width:100%;height:36px;border:1px solid var(--border);border-radius:9px;background:rgba(0,0,0,.3);color:#f8fafc;font-size:13px;font-family:inherit;padding:0 11px 0 32px;outline:none;transition:border-color .14s}
+.search-wrap input::placeholder{color:#4b5563}
+.search-wrap input:focus{border-color:rgba(212,175,55,.42)}
+.search-ico{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:#4b5563;font-size:13px;pointer-events:none}
+.lib-main{padding:22px 20px 60px}
+.main-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.main-title p{font-size:10px;font-weight:1000;letter-spacing:.24em;color:var(--gold);margin-bottom:5px}
+.main-title h2{font-size:clamp(20px,2.6vw,28px);font-weight:1000;letter-spacing:-.06em;color:#fff}
+.meta-chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:999px;background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.15);color:var(--gold2);font-size:11px;font-weight:1000;letter-spacing:.05em}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:16px}
 .book-card{cursor:pointer;position:relative}
-.book-scene{perspective:1200px}
-.book-wrapper{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.8,.2,1);transform:rotateY(-10deg) rotateX(5deg)}
-.book-card:hover .book-wrapper{transform:translateY(-15px) rotateY(-20deg) rotateX(10deg)}
-.book-card.selected .book-wrapper{transform:translateY(-15px) rotateY(-22deg) rotateX(11deg) scale(1.04)}
-.book-front{aspect-ratio:3/4;width:100%;border-radius:3px 14px 14px 3px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 15px;transform:translateZ(15px);box-shadow:inset 4px 0 10px rgba(0,0,0,.5),0 20px 40px rgba(0,0,0,.6)}
-.book-wrapper::before{content:'';position:absolute;top:0;left:0;width:24px;height:100%;transform-origin:left;transform:rotateY(-90deg);background:linear-gradient(90deg,#111,#222 20%,#111 80%,#0a0a0a)}
-.book-wrapper::after{content:'';position:absolute;top:1%;right:-22px;width:22px;height:98%;transform-origin:left;transform:translateZ(-12px) rotateY(90deg);background:#d4c5b0;background-image:repeating-linear-gradient(0deg,#d4c5b0,#d4c5b0 1px,#c0b098 2px)}
-.book-shadow{position:absolute;bottom:-5px;left:5%;width:90%;height:20px;box-shadow:0 15px 25px rgba(0,0,0,.85);transform:translateZ(-15px);transition:all .6s cubic-bezier(.2,.8,.2,1)}
-.book-card:hover .book-shadow,.book-card.selected .book-shadow{bottom:-20px;transform:translateZ(-15px) scale(1.06)}
-.book-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:1000;letter-spacing:.14em;margin-bottom:8px;width:fit-content}
-.book-title-text{font-size:13.5px;font-weight:1000;line-height:1.28;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.8)}
-.book-sub{font-size:9.5px;font-weight:900;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-top:5px}
-.book-status-badge{position:absolute;top:10px;right:10px;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:1000}
-.st-active{background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.32);color:#86efac}
-.st-preview{background:rgba(233,193,118,.14);border:1px solid rgba(233,193,118,.28);color:var(--gold2)}
+.book-scene{perspective:900px}
+.book-wrapper{position:relative;transform-style:preserve-3d;transition:transform .32s cubic-bezier(.22,1,.36,1);transform:rotateY(-8deg) rotateX(4deg)}
+.book-card:hover .book-wrapper{transform:translateY(-8px) rotateY(-18deg) rotateX(8deg)}
+.book-card.selected .book-wrapper{transform:translateY(-10px) rotateY(-20deg) rotateX(9deg) scale(1.04)}
+.book-front{width:100%;aspect-ratio:0.68;border-radius:3px 12px 12px 3px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 14px;box-shadow:6px 10px 30px rgba(0,0,0,.65),-2px 0 0 rgba(0,0,0,.35)}
+.book-wrapper::after{content:'';position:absolute;top:2%;right:-17px;width:17px;height:96%;transform-origin:left;transform:translateZ(-8px) rotateY(90deg);background:#c8bba4;background-image:repeating-linear-gradient(0deg,#c8bba4,#c8bba4 1px,#b8a894 2px)}
+.book-shadow-el{position:absolute;bottom:-6px;left:5%;width:90%;height:14px;box-shadow:0 12px 22px rgba(0,0,0,.75);transition:all .32s;z-index:-1}
+.book-card:hover .book-shadow-el,.book-card.selected .book-shadow-el{bottom:-16px;transform:scale(1.06)}
+.book-badge{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;font-size:9.5px;font-weight:1000;letter-spacing:.12em;margin-bottom:7px;width:fit-content}
+.book-title-text{font-size:13px;font-weight:1000;line-height:1.3;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+.book-sub{font-size:9.5px;font-weight:900;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-top:4px}
+.book-status-badge{position:absolute;top:9px;right:9px;padding:3px 7px;border-radius:999px;font-size:9px;font-weight:1000}
+.st-active{background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.3);color:#86efac}
+.st-preview{background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.26);color:var(--gold2)}
 .st-soon{background:rgba(100,116,139,.12);border:1px solid rgba(100,116,139,.2);color:#94a3b8}
 .th-navy{background:linear-gradient(145deg,#0d2b4a,#162c4f)}
-.th-navy .book-badge{background:rgba(96,165,250,.2);color:#93c5fd;border:1px solid rgba(96,165,250,.28)}
+.th-navy .book-badge{background:rgba(96,165,250,.18);color:#93c5fd;border:1px solid rgba(96,165,250,.24)}
 .th-forest{background:linear-gradient(145deg,#0a2e1e,#103a28)}
-.th-forest .book-badge{background:rgba(34,197,94,.2);color:#86efac;border:1px solid rgba(34,197,94,.28)}
+.th-forest .book-badge{background:rgba(34,197,94,.18);color:#86efac;border:1px solid rgba(34,197,94,.24)}
 .th-royal{background:linear-gradient(145deg,#1a0a3d,#280f5a)}
-.th-royal .book-badge{background:rgba(167,139,250,.2);color:#c4b5fd;border:1px solid rgba(167,139,250,.26)}
+.th-royal .book-badge{background:rgba(167,139,250,.18);color:#c4b5fd;border:1px solid rgba(167,139,250,.22)}
 .th-crimson{background:linear-gradient(145deg,#2d0a0a,#4a1010)}
-.th-crimson .book-badge{background:rgba(248,113,113,.2);color:#fca5a5;border:1px solid rgba(248,113,113,.26)}
+.th-crimson .book-badge{background:rgba(248,113,113,.18);color:#fca5a5;border:1px solid rgba(248,113,113,.22)}
 .th-slate{background:linear-gradient(145deg,#1e293b,#0f172a)}
-.th-slate .book-badge{background:rgba(148,163,184,.16);color:#cbd5e1;border:1px solid rgba(148,163,184,.22)}
+.th-slate .book-badge{background:rgba(148,163,184,.14);color:#cbd5e1;border:1px solid rgba(148,163,184,.18)}
 .th-gold{background:linear-gradient(145deg,#2d1f00,#4a3300)}
-.th-gold .book-badge{background:rgba(233,193,118,.2);color:var(--gold2);border:1px solid rgba(233,193,118,.3)}
-@media(max-width:1024px){.lib-body{grid-template-columns:1fr}.lib-sidebar{display:none}.detail-section{grid-template-columns:1fr}.detail-left{border-right:0;border-bottom:1px solid var(--border);padding:32px}.book-scene-large{max-width:220px}}
-@media(max-width:640px){.lib-main{padding:16px 14px 60px}.book-grid{grid-template-columns:repeat(2,1fr);gap:14px}.detail-meta{grid-template-columns:1fr}.lib-header{padding:10px 16px}.detail-title-large{font-size:26px}}
+.th-gold .book-badge{background:rgba(212,175,55,.18);color:var(--gold2);border:1px solid rgba(212,175,55,.28)}
+@media(max-width:860px){.lib-body{grid-template-columns:1fr}.lib-sidebar{display:none}.detail-inner{grid-template-columns:1fr}.detail-left{border-right:0;border-bottom:1px solid var(--border);padding:20px}.detail-meta{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.lib-main{padding:14px 12px 60px}.book-grid{grid-template-columns:repeat(2,1fr);gap:10px}.lib-header{padding:10px 14px}.detail-meta{grid-template-columns:1fr}.detail-panel.open{max-height:600px}}
 </style>
 </head>
 <body>
@@ -120,6 +117,15 @@ html,body{min-height:100%;font-family:'Pretendard',-apple-system,sans-serif;back
     <a href="gfield-on-archive-preview.html" class="back-btn">← 홈</a>
   </div>
 </header>
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-inner">
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+    <div class="detail-left">
+      <div class="detail-book-3d"><div class="detail-book-wrap"><div class="detail-book-cover" id="detailBookCover"><div class="book-spine-line"></div></div></div></div>
+    </div>
+    <div class="detail-right" id="detailRight"></div>
+  </div>
+</div>
 <div class="lib-body">
   <aside class="lib-sidebar">
     <div class="search-wrap"><span class="search-ico">🔍</span><input type="text" placeholder="교재 검색" id="searchInput"></div>
@@ -135,20 +141,6 @@ html,body{min-height:100%;font-family:'Pretendard',-apple-system,sans-serif;back
     <div class="sidebar-item" data-filter="preview">👁 Preview</div>
   </aside>
   <main class="lib-main">
-    <div class="detail-section" id="detailSection" style="position:relative">
-      <button class="detail-close-btn" onclick="closeDetail()">✕</button>
-      <div class="detail-left">
-        <div class="book-scene-large">
-          <div style="position:relative">
-            <div class="book-shadow-large"></div>
-            <div class="book-wrapper-large">
-              <div class="book-front-large" id="detailBookCover"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-right" id="detailRight"></div>
-    </div>
     <div class="main-head">
       <div class="main-title"><p>SMART EBOOK LIBRARY</p><h2>승인된 교재 서재</h2></div>
       <div class="meta-chips"><span class="chip" id="bookCountChip">교재 로딩 중</span><span class="chip">영상 강의 연결</span></div>
@@ -174,7 +166,7 @@ let filterVal='all',searchVal='',selectedId=null;
   document.getElementById('searchInput').addEventListener('input',e=>{searchVal=e.target.value;renderGrid();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail();});
 })();
-function filtered(){return BOOKS.filter(b=>{const fm=filterVal==='all'||b.category===filterVal||b.status===filterVal;const q=searchVal.toLowerCase();return fm&&(!q||b.displayTitle.toLowerCase().includes(q)||b.subject.includes(q)||b.course.includes(q));});}
+function filtered(){return BOOKS.filter(b=>{const fm=filterVal==='all'||b.category===filterVal||b.status===filterVal;const q=searchVal.toLowerCase();return(fm)&&(!q||b.displayTitle.toLowerCase().includes(q)||b.subject.includes(q)||b.course.includes(q));});}
 function stC(s){return s==='active'?'st-active':s==='preview'?'st-preview':'st-soon';}
 function stD(s){return s==='active'?'● ':s==='preview'?'◎ ':'○ ';}
 function renderGrid(){
@@ -182,7 +174,7 @@ function renderGrid(){
   chip.textContent=`교재 ${books.length}권`;grid.innerHTML='';
   books.forEach(b=>{
     const d=document.createElement('div');d.className='book-card'+(selectedId===b.id?' selected':'');d.dataset.id=b.id;
-    d.innerHTML=`<div class="book-scene"><div style="position:relative"><div class="book-shadow"></div><div class="book-wrapper"><div class="book-front ${b.theme}"><div class="book-status-badge ${stC(b.status)}">${stD(b.status)}${b.statusLabel}</div><div class="book-badge">${b.badge}</div><div class="book-title-text">${b.title.replace('\n','<br>')}</div><div class="book-sub">${b.subject} · ${b.course}</div></div></div></div></div>`;
+    d.innerHTML=`<div class="book-scene"><div class="book-wrapper"><div class="book-shadow-el"></div><div class="book-front ${b.theme}"><div class="book-spine-line"></div><div class="book-status-badge ${stC(b.status)}">${stD(b.status)}${b.statusLabel}</div><div class="book-badge">${b.badge}</div><div class="book-title-text">${b.title.replace('\n','<br>')}</div><div class="book-sub">${b.subject} · ${b.course}</div></div></div></div>`;
     d.addEventListener('click',()=>openDetail(b));grid.appendChild(d);
   });
   if(!books.length)grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:#4b5563;font-size:14px;font-weight:850">해당 교재가 없습니다</div>';
@@ -190,22 +182,21 @@ function renderGrid(){
 function openDetail(b){
   selectedId=b.id;renderGrid();
   const cover=document.getElementById('detailBookCover');
-  cover.className=`book-front-large ${b.theme}`;
-  cover.innerHTML=`<div class="book-badge" style="margin-bottom:12px;font-size:10px">${b.badge}</div><div class="book-title-text" style="font-size:20px;line-height:1.2">${b.title.replace('\n','<br>')}</div><div class="book-sub" style="margin-top:8px;font-size:10.5px">${b.subject} · ${b.course}</div>`;
+  cover.className=`detail-book-cover ${b.theme}`;
+  cover.innerHTML=`<div class="book-spine-line"></div><div class="book-badge" style="margin-bottom:8px">${b.badge}</div><div class="book-title-text" style="font-size:14px">${b.title.replace('\n','<br>')}</div><div class="book-sub" style="margin-top:4px">${b.subject} · ${b.course}</div>`;
   const name=sessionStorage.getItem('gfield_student_name')||'';
   const viewerUrl=b.viewerUrl?(b.viewerUrl+(name?`&student=${encodeURIComponent(name)}`:'')):'';
   const hasLink=b.status==='active'&&viewerUrl;
   document.getElementById('detailRight').innerHTML=`
-    <div class="detail-kicker">${b.subject} · ${b.course}</div>
-    <div class="detail-title-large">${b.displayTitle}</div>
+    <div><div class="detail-kicker">${b.subject} · ${b.course}</div><div class="detail-title" style="margin-top:5px">${b.displayTitle}</div></div>
     <div class="detail-tags">
       <span class="dtag dtag-gold">${b.badge}</span>
-      <span class="dtag ${stC(b.status)}" style="border-radius:999px;padding:0 12px;min-height:30px;display:inline-flex;align-items:center;font-size:11px;font-weight:900">${b.statusLabel}</span>
+      <span class="dtag ${stC(b.status)}" style="border-radius:999px;padding:0 9px;min-height:27px;display:inline-flex;align-items:center;font-size:10.5px;font-weight:900">${b.statusLabel}</span>
       ${b.hasVideo?'<span class="dtag dtag-green">영상 강의 연결</span>':'<span class="dtag dtag-gray">영상 준비중</span>'}
       ${b.hasMaterial?'<span class="dtag dtag-blue">학습 자료</span>':''}
       ${b.hasAnswer?'<span class="dtag dtag-blue">정답/해설</span>':''}
     </div>
-    <div class="detail-desc-large">${b.desc}</div>
+    <div class="detail-desc">${b.desc}</div>
     <div class="detail-meta">
       <div class="dmeta"><b>과목</b><span>${b.subject}</span></div>
       <div class="dmeta"><b>과정</b><span>${b.course}</span></div>
@@ -215,16 +206,15 @@ function openDetail(b){
     <div class="detail-cta">
       ${hasLink?`<a href="${viewerUrl}" class="cta cta-primary">📖 이북 강의 보기</a>`:'<button class="cta cta-disabled">📖 이북 강의 보기</button>'}
       <button class="cta cta-zoom" onclick="showZoomNote(this)">🎥 줌 강의 일정 문의</button>
-      <button class="cta cta-close" onclick="closeDetail()">닫기</button>
+      <button class="cta cta-back" onclick="closeDetail()">닫기</button>
     </div>
     <div class="zoom-note" id="zoomNote" style="display:none">📌 <strong>줌 강의 안내:</strong> 줌 강의 일정은 담당 선생님께 문의해 주세요.</div>
-    ${!hasLink?`<div style="font-size:11.5px;color:#4b5563;margin-top:-6px">※ 현재 <strong style="color:#64748b">${b.statusLabel}</strong> 상태입니다.</div>`:''}
+    ${!hasLink?`<div style="font-size:11px;color:#4b5563;margin-top:-4px">※ 현재 <strong style="color:#64748b">${b.statusLabel}</strong> 상태입니다.</div>`:''}
   `;
-  const section=document.getElementById('detailSection');
-  section.classList.add('open');
-  section.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('detailPanel').classList.add('open');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function closeDetail(){selectedId=null;renderGrid();document.getElementById('detailSection').classList.remove('open');}
+function closeDetail(){selectedId=null;renderGrid();document.getElementById('detailPanel').classList.remove('open');}
 function showZoomNote(btn){const n=document.getElementById('zoomNote');if(n)n.style.display='block';btn.textContent='📌 문의 안내 확인';btn.style.opacity='.6';}
 </script>
 </body>
