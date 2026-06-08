@@ -921,6 +921,12 @@ linear-gradient(135deg,#0a111b,#132433 58%,#081018);border:1px solid rgba(212,17
 @media(max-width:960px) and (orientation:landscape){.access-card{max-width:980px;grid-template-columns:minmax(300px,430px) minmax(240px,1fr)}.card-preview{min-height:0}.intro{min-height:100vh}.smart-open{padding-top:72px}.story-grid,.dashboard-facts,.dashboard-foot,.lecture-grid,.lecture-groups,.target-grid{grid-template-columns:repeat(2,1fr)}.story-flow{grid-template-columns:repeat(2,1fr)}.secret-showcase{grid-template-columns:1fr 1fr}.pdf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pdf-preview-card{grid-column:span 2}.pdf-open{margin-top:0}.pdf-screen,.pdf-screen iframe{min-height:420px;height:420px}}
 @media(max-width:960px) and (orientation:portrait){.rotate-note{display:flex}}
 @media(max-width:760px){.access-title{white-space:normal;font-size:clamp(30px,8.5vw,42px);line-height:1.08}.access-header{padding:0}}
+
+.smart-ebook-entry{display:flex;align-items:center;justify-content:center;gap:12px;padding:20px 24px;margin-top:24px;background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(212,175,55,.06));border:1px solid rgba(212,175,55,.28);border-radius:20px;flex-wrap:wrap}
+.smart-ebook-entry p{color:#cbd5e1;font-size:13px;font-weight:850;margin:0;line-height:1.5;flex:1;min-width:200px;text-align:left}
+.smart-ebook-entry p strong{color:#f8dd83;display:block;font-size:15px;margin-bottom:4px}
+#smartEbookEntryBtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:14px;background:linear-gradient(135deg,#d4af37,#f8dd83);color:#02050b;font-size:14px;font-weight:1000;border:0;cursor:pointer;font-family:inherit;box-shadow:0 10px 26px rgba(212,175,55,.32);transition:all .16s;white-space:nowrap;text-decoration:none}
+#smartEbookEntryBtn:hover{filter:brightness(1.08)}
 </style>
 </head>
 <body>
@@ -1073,6 +1079,11 @@ linear-gradient(135deg,#0a111b,#132433 58%,#081018);border:1px solid rgba(212,17
         </div>
       </div>
       <div class="pdf-body">
+        
+        <div class="smart-ebook-entry" id="smartEbookEntry" style="display:none">
+          <p><strong>📚 Smart eBook 서재</strong>교재별 영상 강의, 자료, 정답이 연동된 프리미엄 학습 뷰어로 바로 입장합니다.</p>
+          <a id="smartEbookEntryBtn" href="gfield-on-archive-ebook-library.html">서재 입장하기 →</a>
+        </div>
         <div class="ebook-exec">
           <aside class="ebook-side">
             <article class="ebook-side-card primary">
@@ -2062,6 +2073,20 @@ function copyAiPrompt(){
   }
   fallbackCopy();
 }
+
+(function(){
+  function showEntry(){
+    var el=document.getElementById('smartEbookEntry');if(!el)return;
+    el.style.display='flex';
+    var n=sessionStorage.getItem('gfield_student_name')||'';
+    var btn=document.getElementById('smartEbookEntryBtn');
+    if(btn&&n)btn.href='gfield-on-archive-ebook-library.html?student='+encodeURIComponent(n);
+  }
+  var f=document.getElementById('accessForm');
+  if(f)f.addEventListener('submit',function(){setTimeout(showEntry,6800);},true);
+  if(sessionStorage.getItem('gfield_archive_access')==='approved')showEntry();
+})();
+
 </script>
 </body>
 </html>
